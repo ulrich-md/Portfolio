@@ -10,7 +10,7 @@ Sitio web estático (HTML + CSS + JS, sin build) que cuenta la historia de TUQO 
 | **Impact** (pizarra) | El impacto primero: 4 cifras con notas de tiza + pruebas (premio, cliente, prensa, web en vivo) |
 | **30 sec** (call sheet) | La historia completa en 5 líneas, para el lector sin tiempo |
 | **01 Problem** (corcho) | El momento en que empezó, el problema y tu primer intento fallido |
-| **02 Build** (claqueta) | 6 escenas: qué construiste → qué cambió |
+| **02 Build** (escritorio de noche) | 6 proyectos como objetos sobre el escritorio (monitor, celular, hoja de automatización, cuaderno, recorte de prensa, sobre). La lámpara se arrastra y se apaga; todo se puede mover |
 | **03 Case** (expediente) | Un proyecto con hilo rojo: antes → lo que construiste → después → lo que dijo el cliente |
 | **04 Next** | Lecciones, por qué esa universidad y contacto |
 

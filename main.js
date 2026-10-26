@@ -230,15 +230,93 @@
     });
   });
 
-  /* ---------- Clapperboard state (works with or without GSAP) ---------- */
-  const takeNum = document.querySelector('.take-num');
-  const sceneNum = document.querySelector('.scene-num');
-  let take = 1;
-  document.querySelectorAll('.frame').forEach((f, i) => {
-    const show = () => { sceneNum.textContent = String(i + 1).padStart(2, '0'); };
-    f.addEventListener('pointerenter', show);
-    f.addEventListener('focusin', show);
+  /* ---------- The desk at night (works with or without GSAP) ---------- */
+  const desk = document.querySelector('.desk');
+  const kb = desk.querySelector('.keyboard-dk');
+  for (let i = 0; i < 37; i++) {
+    const k = document.createElement('span');
+    if (i === 12) k.className = 'k-y';
+    if (i === 27) k.className = 'k-r';
+    if (i === 33) k.className = 'k-space';
+    kb.appendChild(k);
+  }
+
+  const envelope = desk.querySelector('.envelope');
+  const envBtn = envelope.querySelector('.env-btn');
+  const toggleEnvelope = () => {
+    const open = !envelope.classList.contains('is-open');
+    envelope.classList.toggle('is-open', open);
+    envBtn.setAttribute('aria-expanded', String(open));
+    envBtn.textContent = open ? 'Close the envelope' : 'Open the envelope';
+    play('pick');
+  };
+  envBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleEnvelope(); });
+
+  const send = desk.querySelector('.phone-send');
+  const reply = desk.querySelector('.bubble.out');
+  const typing = desk.querySelector('.typing');
+  send.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (send.getAttribute('aria-expanded') === 'true') {
+      reply.hidden = true;
+      send.setAttribute('aria-expanded', 'false');
+      send.textContent = 'Show my reply';
+      return;
+    }
+    typing.hidden = false;
+    send.disabled = true;
+    setTimeout(() => {
+      typing.hidden = true;
+      reply.hidden = false;
+      send.disabled = false;
+      send.setAttribute('aria-expanded', 'true');
+      send.textContent = 'Hide my reply';
+      play('key');
+    }, reduce ? 0 : 900);
   });
+
+  const monitor = desk.querySelector('.monitor');
+  desk.querySelector('.power').addEventListener('click', () => {
+    play('key');
+    monitor.classList.add('is-off');
+    desk.classList.add('monitor-off');
+    setTimeout(() => {
+      monitor.classList.remove('is-off');
+      desk.classList.remove('monitor-off');
+      monitor.classList.add('is-booting');
+      setTimeout(() => monitor.classList.remove('is-booting'), 750);
+    }, 800);
+  });
+
+  /* The lamp: its pool of light follows it; a click switches it */
+  const lamp = desk.querySelector('.lamp');
+  const cord = desk.querySelector('.lamp-cord');
+  const cordPath = cord.querySelector('path');
+  let lampDragged = 0;
+  function setLight(on) {
+    desk.classList.toggle('lights-off', !on);
+    lamp.setAttribute('aria-pressed', String(on));
+    lamp.setAttribute('aria-label', on ? 'Desk lamp: switch off' : 'Desk lamp: switch on');
+  }
+  lamp.addEventListener('click', () => {
+    if (performance.now() - lampDragged < 120) return;
+    setLight(desk.classList.contains('lights-off'));
+    play('key');
+  });
+  function syncLamp() {
+    if (!lamp.offsetWidth) return;
+    const x = lamp.offsetLeft + lamp.offsetWidth / 2 + gx(lamp, 'x');
+    const y = lamp.offsetTop + lamp.offsetHeight / 2 + gx(lamp, 'y');
+    desk.style.setProperty('--px', `${x}px`);
+    desk.style.setProperty('--py', `${y + 120}px`);
+    const w = desk.offsetWidth;
+    cord.setAttribute('width', w);
+    cord.setAttribute('height', desk.offsetHeight);
+    const sx = w / 2 + 170;
+    cordPath.setAttribute('d', `M${sx} -10 Q ${(sx + x) / 2} ${Math.max(y, 0) * 0.5 + 60} ${x} ${y}`);
+  }
+  syncLamp();
+  window.addEventListener('resize', syncLamp);
 
   const bar = document.querySelector('.progress-bar');
   if (!hasGsap || reduce) {
@@ -248,11 +326,6 @@
     };
     window.addEventListener('scroll', update, { passive: true });
     update();
-    document.querySelector('.clapper-stick').addEventListener('click', () => {
-      take += 1;
-      takeNum.textContent = String(take).padStart(2, '0');
-      play('clap');
-    });
     return;
   }
 
@@ -332,68 +405,15 @@
   ScrollTrigger.create({ trigger: stamp, start: 'top 85%', once: true, onEnter: stampIt });
   stamp.addEventListener('click', stampIt);
 
-  /* Build: the clapperboard */
-  const stick = document.querySelector('.clapper-stick');
-  const slate = document.querySelector('.slate');
-  const pop = document.querySelector('.clap-pop');
-  let clapping = false;
-  function clap() {
-    if (clapping) return;
-    clapping = true;
-    gsap.to(stick, {
-      rotation: 0, duration: 0.16, ease: 'power4.in',
-      onComplete: () => {
-        clapping = false;
-        play('clap');
-        take += 1;
-        const t = String(take).padStart(2, '0');
-        takeNum.textContent = t;
-        pop.textContent = `Take ${t}!`;
-        gsap.fromTo(slate, { y: 0 }, { y: 7, duration: 0.07, yoyo: true, repeat: 1, ease: 'power1.out' });
-        gsap.fromTo(pop, { opacity: 0, y: 14, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: 'back.out(2.5)' });
-        gsap.to(pop, { opacity: 0, y: -12, duration: 0.5, delay: 0.9 });
-        gsap.fromTo('.frame .strip', { filter: 'brightness(1.6)' }, { filter: 'brightness(1)', duration: 0.5, stagger: 0.03 });
-      },
-    });
-  }
-  function openAndClap() {
-    gsap.to(stick, { rotation: -30, duration: 0.25, ease: 'power2.out', onComplete: () => gsap.delayedCall(0.12, clap) });
-  }
-  let stickDrag = null;
-  stick.addEventListener('pointerdown', (e) => {
-    e.preventDefault();
-    stick.setPointerCapture(e.pointerId);
-    stickDrag = { y: e.clientY, start: gsap.getProperty(stick, 'rotation'), moved: false };
-  });
-  stick.addEventListener('pointermove', (e) => {
-    if (!stickDrag) return;
-    const dy = e.clientY - stickDrag.y;
-    if (Math.abs(dy) > 3) stickDrag.moved = true;
-    gsap.set(stick, { rotation: clamp(-40, 0, stickDrag.start + dy * 0.35) });
-  });
-  const stickUp = () => {
-    if (!stickDrag) return;
-    const { moved } = stickDrag;
-    stickDrag = null;
-    if (!moved) openAndClap();
-    else if (gsap.getProperty(stick, 'rotation') < -4) clap();
-    else gsap.to(stick, { rotation: 0, duration: 0.2 });
-  };
-  stick.addEventListener('pointerup', stickUp);
-  stick.addEventListener('pointercancel', stickUp);
-  stick.addEventListener('click', (e) => { if (e.detail === 0) openAndClap(); });
-
-  gsap.timeline({ scrollTrigger: { trigger: '.clapper', start: 'top 72%', once: true } })
-    .fromTo(stick, { rotation: -24 }, { rotation: 0, duration: 0.32, ease: 'power4.in', delay: 0.3, onComplete: () => play('clap') })
-    .fromTo(slate, { y: 0 }, { y: 6, duration: 0.08, yoyo: true, repeat: 1, ease: 'power1.out' })
-    .from('.frame', { x: 120, y: 30, rotation: 10, opacity: 0, duration: 0.7, stagger: 0.12, ease: 'back.out(1.4)' }, '-=0.05')
-    .from('.frame .tape-red', { scaleX: 0, duration: 0.3, stagger: 0.12 }, '-=0.6');
-
-  /* Ending: the small clapper claps on arrival and on click */
-  const mini = document.querySelector('.mini-clap');
-  const miniClap = () => gsap.fromTo('.mc-stick', { rotation: -32 }, { rotation: 0, duration: 0.28, ease: 'power4.in', onComplete: () => play('clap') });
-  ScrollTrigger.create({ trigger: '.end', start: 'top 90%', once: true, onEnter: miniClap });
-  mini.addEventListener('click', miniClap);
+  /* Build: objects settle on the desk, then the lamp flickers on */
+  const deskItems = gsap.utils.toArray('.desk .obj:not(.candy):not(.mini-note), .monitor, .keyboard-dk, .plant');
+  gsap.timeline({ scrollTrigger: { trigger: desk, start: 'top 70%', once: true } })
+    .from(deskItems, { y: -50, opacity: 0, duration: 0.6, stagger: 0.06, ease: 'power3.out' })
+    .add(() => {
+      const steps = [false, true, false, true];
+      steps.forEach((on, i) => setTimeout(() => { setLight(on); if (on) play('key'); }, i * 110));
+    }, 0.1)
+    .fromTo('.circled path', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut' }, '-=0.2');
 
   /* Case: pinned evidence board */
   const mm = gsap.matchMedia();
@@ -447,6 +467,36 @@
     makeDrag('.receipt', '.impact');
     makeDrag('.lessons .note', '.next');
     makeDrag('.lockers .stk', '.problem');
+
+    /* Everything on the desk can be moved; the lamp drags its light with it */
+    let deskZ = 6;
+    gsap.utils.toArray('.desk .obj').forEach((el) => {
+      el.classList.add('can-drag');
+      const tilt = gsap.quickTo(el, 'rotation', { duration: 0.45, ease: 'power3' });
+      window.Draggable.create(el, {
+        type: 'x,y', bounds: desk, zIndexBoost: false, minimumMovement: 3,
+        dragClickables: false,
+        onPress() {
+          if (deskZ >= 19) { gsap.utils.toArray('.desk .obj').forEach((o) => { o.style.zIndex = ''; }); deskZ = 6; }
+          el.style.zIndex = ++deskZ;
+          el.classList.add('is-dragging');
+          gsap.to(el, { scale: 1.04, duration: 0.2 });
+          play('pick');
+        },
+        onDrag() { tilt(clamp(-12, 12, this.deltaX * 1.4)); },
+        onRelease() {
+          el.classList.remove('is-dragging');
+          tilt(0);
+          gsap.to(el, { scale: 1, duration: 0.5, ease: 'back.out(3)' });
+          play('drop');
+        },
+      });
+    });
+    window.Draggable.create(lamp, {
+      type: 'x,y', bounds: desk, minimumMovement: 4,
+      onDrag() { lampDragged = performance.now(); syncLamp(); },
+      onRelease() { if (this.isDragging) lampDragged = performance.now(); syncLamp(); },
+    });
     document.querySelector('.lockers').style.pointerEvents = 'none';
     document.querySelectorAll('.lockers .stk').forEach((s) => { s.style.pointerEvents = 'auto'; });
 
@@ -462,7 +512,7 @@
     });
   } else {
     /* Touch: a tap gives a little wiggle */
-    document.querySelectorAll('.pc, .note, .receipt, .ev').forEach((el) => {
+    document.querySelectorAll('.pc, .note, .receipt, .ev, .desk .obj').forEach((el) => {
       el.addEventListener('click', () => gsap.fromTo(el, { rotation: -4 }, { rotation: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)' }));
     });
     document.querySelector('.disc').addEventListener('click', () => gsap.to('.disc', { rotation: '+=360', duration: 1.2, ease: 'power3.out' }));
@@ -512,7 +562,7 @@
   }
 
   /* Keys click */
-  document.querySelectorAll('.keyboard span').forEach((k) => {
+  document.querySelectorAll('.keyboard span, .keyboard-dk span').forEach((k) => {
     k.addEventListener('pointerdown', () => { k.classList.add('is-down'); play('key'); });
     k.addEventListener('pointerup', () => k.classList.remove('is-down'));
     k.addEventListener('pointerleave', () => k.classList.remove('is-down'));
