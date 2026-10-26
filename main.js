@@ -135,9 +135,57 @@
     .from('.idcard', { rotation: 20, transformOrigin: '50% -180px', duration: 2.4, ease: 'elastic.out(1, 0.28)' }, 1.3)
     .from('.motto', { scale: 1.6, opacity: 0, duration: 0.5, ease: 'back.out(2.5)' }, 1.8);
 
-  gsap.utils.toArray('.hero [data-speed]').forEach((el) => {
-    gsap.to(el, { y: () => parseFloat(el.dataset.speed) * 300, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  /* Depth: every prop drifts with the page; foreground (blurred) props move fastest */
+  gsap.utils.toArray('[data-speed]').forEach((el) => {
+    const s = parseFloat(el.dataset.speed);
+    const sec = el.closest('section');
+    const isHero = sec.classList.contains('hero');
+    gsap.fromTo(el, { y: isHero ? 0 : -s * 170 }, {
+      y: s * (isHero ? 320 : 170), ease: 'none',
+      scrollTrigger: { trigger: sec, start: isHero ? 'top top' : 'top bottom', end: 'bottom top', scrub: true },
+    });
   });
+
+  /* Light: a warm lamp follows the pointer; lit papers catch it; the cover tilts toward you */
+  if (window.matchMedia('(pointer: fine)').matches) {
+    const light = document.querySelector('.light');
+    const litEls = [...document.querySelectorAll('.lit')];
+    let tx = window.innerWidth * 0.3, ty = window.innerHeight * 0.2, cx = tx, cy = ty, moved = true;
+    window.addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; moved = true; }, { passive: true });
+    window.addEventListener('scroll', () => { moved = true; }, { passive: true });
+    gsap.ticker.add(() => {
+      if (!moved && Math.abs(tx - cx) < 0.5 && Math.abs(ty - cy) < 0.5) return;
+      moved = false;
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      light.style.setProperty('--lx', `${cx}px`);
+      light.style.setProperty('--ly', `${cy}px`);
+      litEls.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        el.style.setProperty('--lit-x', `${((cx - r.left) / r.width) * 100}%`);
+        el.style.setProperty('--lit-y', `${((cy - r.top) / r.height) * 100}%`);
+      });
+    });
+
+    const hero = document.querySelector('.hero');
+    const stage = document.querySelector('.hero-stage');
+    gsap.set(hero, { perspective: 1400 });
+    const rotX = gsap.quickTo(stage, 'rotationX', { duration: 0.9, ease: 'power3' });
+    const rotY = gsap.quickTo(stage, 'rotationY', { duration: 0.9, ease: 'power3' });
+    const lanX = gsap.quickTo('.lanyard', 'x', { duration: 1.2, ease: 'power3' });
+    const floppyX = gsap.quickTo('.floppy', 'x', { duration: 1, ease: 'power3' });
+    hero.addEventListener('pointermove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      rotY(px * 5);
+      rotX(-py * 3.5);
+      lanX(px * -16);
+      floppyX(px * 40);
+    });
+    hero.addEventListener('pointerleave', () => { rotX(0); rotY(0); lanX(0); floppyX(0); });
+  }
   gsap.to('.folder', { yPercent: -4, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
 
   /* Generic reveals */
