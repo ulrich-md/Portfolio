@@ -765,3 +765,59 @@ button.stamp:hover { scale: 1.06; }
 @media (prefers-reduced-motion: reduce) {
   .pc, .note, .receipt, .desk .obj, .quote, .origin, .ev, .letter, .contact, .idcard, .burst, .keyboard span, .stamp, .pushpin, .qr, .role li, .tags li, .metric-num,   .metric:hover .arrow path { animation: none; }
 }
+
+
+/* =====================================================================
+   REAL MATERIALS (CC0 photos and textures in /assets)
+   ===================================================================== */
+img.binder-photo, img.keyboard-photo, img.plant { -webkit-user-drag: none; user-select: none; }
+
+/* Kraft folder and case board */
+.folder, .board { background: url("assets/tex/kraft.jpg") 0 0 / 560px repeat, var(--kraft); }
+.folder-tab { background: linear-gradient(rgba(60, 30, 5, .18), rgba(60, 30, 5, .18)), url("assets/tex/kraft.jpg") 0 0 / 560px; }
+
+/* Black binder clips */
+.binder-photo { position: absolute; top: -78px; left: 30%; z-index: 7; width: 150px; height: auto; rotate: -42deg; pointer-events: none; filter: drop-shadow(0 6px 6px rgba(0, 0, 0, .35)); }
+.board .binder-photo { left: calc(50% - 75px); }
+.binder-photo.small { top: -60px; left: calc(50% - 55px); width: 110px; }
+
+/* Paper grain on every sheet */
+.callsheet, .letter, .receipt, .pc, .quote, .origin, .ev-paper, .flow-sheet, .idcard .id-photo, .spec {
+  background-image: url("assets/tex/paper.jpg"); background-size: 380px; background-blend-mode: multiply;
+}
+.v0 { background-image: linear-gradient(transparent 31px, #D6DEEE 31px, #D6DEEE 32px), url("assets/tex/paper.jpg"); background-size: 100% 32px, 380px; background-blend-mode: multiply; }
+.notebook { background-image: linear-gradient(transparent 27px, #D6DEEE 27px, #D6DEEE 28px), url("assets/tex/paper.jpg"); background-size: 100% 28px, 380px; background-blend-mode: multiply; }
+
+/* Cover: a dark wooden desk and a real keyboard */
+.hero { background: linear-gradient(rgba(10, 10, 12, .74), rgba(10, 10, 12, .84)), url("assets/tex/wood-dark.jpg") 0 0 / 760px; }
+.keyboard-photo { top: -60px; right: -150px; width: 560px; height: auto; rotate: 196deg; filter: brightness(.92) drop-shadow(0 24px 30px rgba(0, 0, 0, .5)); }
+
+/* Impact + call sheet: a real chalkboard */
+.impact, .tldr { background: linear-gradient(rgba(14, 18, 16, .5), rgba(14, 18, 16, .62)), url("assets/img/chalkboard.jpg") center top / cover; }
+.tldr { background-position: center bottom; }
+
+/* Cork board in a wooden frame, on real (out of focus) lockers tinted green */
+.cork { border: 16px solid transparent; background: url("assets/tex/cork.jpg") 0 0 / 460px padding-box, url("assets/tex/wood-frame.jpg") 0 0 / 300px border-box; }
+.lockers {
+  background-image: linear-gradient(rgba(6, 40, 18, .3), rgba(6, 30, 14, .55)), url("assets/img/lockers.jpg");
+  background-size: cover, cover; background-position: center, center;
+  background-color: #2E8C4C; background-blend-mode: multiply, luminosity;
+}
+
+/* Night desk: real wood under blue night light */
+.desk { background: url("assets/tex/wood-dark.jpg") 0 0 / 640px; background-color: #4A5BB0; background-blend-mode: multiply; }
+.desk-grain { display: none; }
+.plant { width: 280px; height: auto; left: -70px; top: -40px; border-radius: 0; background: none; rotate: 12deg; filter: drop-shadow(0 18px 18px rgba(0, 0, 0, .4)); }
+.cup { width: 200px; height: 121px; border-radius: 0; background: none; }
+.cup::after { display: none; }
+.cup img { display: block; width: 100%; height: auto; pointer-events: none; filter: drop-shadow(0 12px 14px rgba(0, 0, 0, .45)); }
+.cup .steam { left: 54%; top: 18%; }
+.cup .steam.s2 { left: 66%; }
+.clipping { background: linear-gradient(rgba(240, 234, 218, .84), rgba(240, 234, 218, .84)), url("assets/img/newspaper.jpg") center / cover; }
+
+@media (max-width: 860px) {
+  .keyboard-photo { display: none; }
+}
+.mug-photo { right: -70px; bottom: 0; width: 380px; height: auto; rotate: -20deg; }
+.flow-sheet .binder-photo.small { top: -64px; }
+@media (max-width: 860px) { .mug-photo { display: none; } }

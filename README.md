@@ -41,3 +41,18 @@ python3 -m http.server 8000
 - [Lenis 1.1.13](https://lenis.darkroom.engineering) para el scroll suave.
 - Fuentes de Google Fonts: Bricolage Grotesque, Instrument Serif, Gochi Hand y Courier Prime.
 - Respeta `prefers-reduced-motion`: si el visitante tiene las animaciones desactivadas, el sitio se muestra estático.
+
+## Créditos de imágenes
+
+Todas las imágenes son de dominio público (CC0 / Public Domain Mark): se pueden usar sin pedir permiso ni dar crédito, pero aquí van sus fuentes.
+
+- Texturas (kraft, corcho, madera, papel, metal): [ambientCG](https://ambientcg.com), CC0 — Cardboard002, Cork004, Wood051, Wood092, Paper001, PaintedMetal004.
+- Pizarra (Impact, call sheet): [Chalkboard Chalk](https://stocksnap.io/photo/chalkboard-chalk-FQCCUDQ3N0) — Flat Lay Photos, CC0.
+- Taza de café: [Top View Coffee Desk](https://www.rawpixel.com/image/5967272/top-view-coffee-desk) — autor desconocido, CC0. Fondo recortado con rembg.
+- Terrario: [Terrarium in a glass bowl](https://www.rawpixel.com/image/430735/free-photo-image-terrarium-wooden-bloom) — Scott Webb, CC0. Fondo recortado con rembg.
+- Teclado (portada): [Keyboard Desk](https://stocksnap.io/photo/keyboard-desk-XACD6BTT0S) — Lenharth Systems, CC0. Fondo recortado con rembg.
+- Clip negro: [Binder clip clipart, stationery illustration](https://www.rawpixel.com/image/6588392/image-public-domain-black-illustrations) — autor desconocido, CC0. Fondo recortado con rembg.
+- Casilleros (01 Problem, teñidos de verde en CSS): [School locker](https://www.rawpixel.com/image/6021920/school-locker-free-public-domain-cc0-photo) — autor desconocido, CC0.
+- Recorte de periódico: [newspaper](https://www.rawpixel.com/image/5942351/free-public-domain-cc0-photo) — autor desconocido, CC0.
+
+Para tus propias fotos (capturas, fotos con clientes, tu retrato) usa siempre imágenes tuyas.
