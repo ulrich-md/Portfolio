@@ -6,13 +6,13 @@ Sitio web estático (HTML + CSS + JS, sin build) que cuenta la historia de TUQO 
 
 | Sección | Para qué sirve |
 |---|---|
-| **Cover** | Gancho de 5 segundos: quién eres, qué es TUQO y 3 cifras |
-| **30 sec** | La historia completa en 5 líneas, para el lector que no tiene tiempo |
-| **01 Spark** | Quién eres y el momento en que empezó todo |
-| **02 Problem** | El problema que viste y tu primer intento fallido |
-| **03 Build** | Línea de tiempo + lo que construiste (scroll horizontal en escritorio) |
-| **04 Case** | Una automatización paso a paso: antes / después / tu rol |
-| **05 Next** | Resultados, lecciones, por qué esa universidad y contacto |
+| **Cover** (carpeta kraft) | Gancho de 5 segundos: qué es TUQO, ficha con cifras, credencial con tu nombre |
+| **Impact** (pizarra) | El impacto primero: 4 cifras con notas de tiza + pruebas (premio, cliente, prensa, web en vivo) |
+| **30 sec** (call sheet) | La historia completa en 5 líneas, para el lector sin tiempo |
+| **01 Problem** (corcho) | El momento en que empezó, el problema y tu primer intento fallido |
+| **02 Build** (claqueta) | 6 escenas: qué construiste → qué cambió |
+| **03 Case** (expediente) | Un proyecto con hilo rojo: antes → lo que construiste → después → lo que dijo el cliente |
+| **04 Next** | Lecciones, por qué esa universidad y contacto |
 
 ## Cómo completarlo
 
@@ -39,5 +39,5 @@ python3 -m http.server 8000
 
 - [GSAP 3.12.5 + ScrollTrigger](https://gsap.com) para las animaciones con scroll.
 - [Lenis 1.1.13](https://lenis.darkroom.engineering) para el scroll suave.
-- Fuentes de Google Fonts: Bricolage Grotesque, Silkscreen y Caveat.
+- Fuentes de Google Fonts: Bricolage Grotesque, Instrument Serif, Gochi Hand y Courier Prime.
 - Respeta `prefers-reduced-motion`: si el visitante tiene las animaciones desactivadas, el sitio se muestra estático.
