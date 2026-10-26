@@ -30,8 +30,9 @@
   --f-type: "Courier Prime", "Courier New", ui-monospace, monospace;
 
   /* Layered shadows: contact + key light + ambient, plus a lit top edge and shaded bottom */
-  --shadow: 0 1px 1px rgba(0, 0, 0, .35), 0 8px 14px -4px rgba(0, 0, 0, .45), 0 34px 70px -14px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(255, 255, 255, .45), inset 0 -60px 70px -60px rgba(0, 0, 0, .28);
-  --shadow-sm: 0 1px 1px rgba(0, 0, 0, .3), 0 5px 9px -3px rgba(0, 0, 0, .4), 0 18px 30px -8px rgba(0, 0, 0, .6), inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 -26px 32px -26px rgba(0, 0, 0, .22);
+  --shadow: 0 1px 2px rgba(0, 0, 0, .22), 0 14px 28px -12px rgba(0, 0, 0, .45);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .2), 0 8px 16px -8px rgba(0, 0, 0, .45);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, .18), 0 28px 44px -14px rgba(0, 0, 0, .5);
   --gutter-l: max(20px, env(safe-area-inset-left, 0px));
   --gutter-r: max(20px, env(safe-area-inset-right, 0px));
 
@@ -101,9 +102,9 @@ main { position: relative; z-index: 1; overflow-x: clip; }
 .btn {
   display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 26px; border-radius: 999px;
   background: var(--ink); color: #fff; font-weight: 700; font-size: 17px; text-decoration: none;
-  transition: background-color .2s ease, transform .2s ease;
+  transition: background-color .2s ease;
 }
-.btn:hover { background: var(--red); transform: translateY(-2px); }
+.btn:hover { background: var(--red); }
 
 /* Chalkboard sections */
 .chalk { position: relative; }
@@ -198,7 +199,9 @@ main { position: relative; z-index: 1; overflow-x: clip; }
 .pc-c { width: 38%; right: 4%; bottom: 0; rotate: 4deg; z-index: 2; }
 .pc-a .ph, .pc-b .ph, .pc-c .ph { aspect-ratio: 4 / 3; }
 .strings { position: absolute; left: 0; top: 0; z-index: 3; overflow: visible; pointer-events: none; }
-.strings path { fill: none; stroke: var(--red); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.strings .str { fill: none; stroke: var(--red); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.strings .hit { fill: none; stroke: transparent; stroke-width: 30; pointer-events: stroke; cursor: grab; touch-action: none; }
+.strings .hit:active { cursor: grabbing; }
 
 .lanyard { position: relative; z-index: 4; margin: -110px 0 0 -70px; padding-top: 180px; }
 .strap { position: absolute; left: 50%; top: 0; width: 0; height: 200px; }
@@ -289,7 +292,7 @@ main { position: relative; z-index: 1; overflow-x: clip; }
     radial-gradient(rgba(70, 40, 10, .38) 1px, transparent 1.6px),
     radial-gradient(rgba(255, 235, 200, .25) 1px, transparent 1.6px);
   background-size: 7px 7px, 11px 11px; background-position: 0 0, 3px 5px;
-  box-shadow: var(--shadow), inset 0 0 0 2px rgba(0, 0, 0, .2), inset 0 0 30px rgba(0, 0, 0, .25);
+  box-shadow: var(--shadow), inset 0 0 0 2px rgba(0, 0, 0, .15);
   rotate: -.6deg;
 }
 .type-tag.on-cork { display: inline-block; padding: 6px 10px; background: var(--ink); color: var(--yellow); }
@@ -484,24 +487,15 @@ main { position: relative; z-index: 1; overflow-x: clip; }
    LIGHT, DEPTH, DETAIL
    ===================================================================== */
 
-/* A warm desk light that follows the pointer, and a cinema vignette */
+/* A warm desk light that follows the pointer */
 .light {
   --lx: 30vw; --ly: 20vh;
   position: fixed; inset: 0; z-index: 30; pointer-events: none; mix-blend-mode: screen;
   background: radial-gradient(560px circle at var(--lx) var(--ly), rgba(255, 222, 170, .11), transparent 70%);
 }
-.vignette { position: fixed; inset: 0; z-index: 31; pointer-events: none; background: radial-gradient(ellipse 125% 95% at 50% 42%, transparent 52%, rgba(0, 0, 0, .5) 100%); }
-
-/* Lit surfaces: a soft key light from the top-left that tracks the pointer, falling off to shade at the bottom */
-.lit::after {
-  content: ""; position: absolute; inset: 0; z-index: 6; border-radius: inherit; pointer-events: none; mix-blend-mode: soft-light;
-  background:
-    radial-gradient(120% 95% at var(--lit-x, 18%) var(--lit-y, 0%), rgba(255, 242, 218, .6), transparent 58%),
-    linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, .38));
-}
 
 /* Paper details */
-.note { border-bottom-right-radius: 46px 7px; background-image: linear-gradient(168deg, rgba(255, 255, 255, .42), transparent 26%, transparent 70%, rgba(0, 0, 0, .1)); }
+.note { border-bottom-right-radius: 46px 7px; background-image: linear-gradient(168deg, rgba(255, 255, 255, .4), transparent 30%); }
 .pc::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(125deg, transparent 38%, rgba(255, 255, 255, .32) 49%, transparent 60%); mix-blend-mode: soft-light; }
 .tape-red, .receipt::before, .slate-tape, .tape {
   clip-path: polygon(3% 0, 97% 0, 100% 18%, 96% 36%, 100% 54%, 96% 72%, 100% 90%, 97% 100%, 3% 100%, 0 88%, 4% 70%, 0 52%, 4% 34%, 0 16%);
@@ -513,12 +507,6 @@ main { position: relative; z-index: 1; overflow-x: clip; }
 
 /* Cover: lamp glow, window-blind shadows, a floppy in the foreground, a coffee ring */
 .lamp-glow { position: absolute; left: -15%; top: -30%; width: 75%; height: 100%; z-index: 0; pointer-events: none; background: radial-gradient(closest-side, rgba(255, 210, 140, .2), rgba(255, 210, 140, .06) 60%, transparent); }
-.blinds {
-  position: absolute; inset: 0; z-index: 8; pointer-events: none; mix-blend-mode: multiply;
-  background: repeating-linear-gradient(118deg, transparent 0 70px, rgba(10, 6, 2, .14) 100px 150px, transparent 180px);
-  -webkit-mask-image: linear-gradient(100deg, transparent 8%, #000 40%, #000 62%, transparent 92%);
-  mask-image: linear-gradient(100deg, transparent 8%, #000 40%, #000 62%, transparent 92%);
-}
 .hero-stage { will-change: transform; }
 .coffee-ring { position: absolute; right: 9%; bottom: 7%; width: 120px; height: 120px; border-radius: 50%; pointer-events: none; border: 5px solid rgba(110, 60, 20, .16); box-shadow: inset 0 0 0 2px rgba(110, 60, 20, .08); rotate: 20deg; clip-path: polygon(0 0, 100% 0, 100% 72%, 60% 100%, 0 100%); }
 .floppy { left: -40px; bottom: 30px; width: 190px; height: 200px; border-radius: 6px 6px 6px 22px; rotate: -18deg; background: linear-gradient(160deg, #3A4C8E, #1F2B5C); box-shadow: 0 30px 50px rgba(0, 0, 0, .6); }
@@ -546,7 +534,7 @@ main { position: relative; z-index: 1; overflow-x: clip; }
 .metric-num { text-shadow: 0 0 18px rgba(255, 255, 255, .12); }
 
 /* Lockers: fluorescent light from above, locks and old stickers */
-.problem::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(180deg, rgba(255, 255, 255, .14), transparent 30%, transparent 75%, rgba(0, 0, 0, .3)); }
+.problem::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(180deg, rgba(255, 255, 255, .12), transparent 35%); }
 .lock { position: absolute; width: 30px; height: 56px; border-radius: 8px; background: linear-gradient(90deg, #8E6A1E, #F0CD6A 40%, #B88E2E); box-shadow: 0 6px 10px rgba(0, 0, 0, .4); }
 .lock::after { content: ""; position: absolute; left: 50%; top: 20px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #5A4210; }
 .l1 { left: calc(280px - 52px); top: 46%; }
@@ -564,7 +552,7 @@ main { position: relative; z-index: 1; overflow-x: clip; }
 .stk-paper { left: 6%; bottom: 8%; padding: 14px 22px; background: #5BC2D6; color: #0E3540; font-family: var(--f-sans); font-weight: 800; font-size: 26px; rotate: -8deg; opacity: .55; clip-path: polygon(0 4%, 100% 0, 97% 100%, 2% 96%); }
 
 /* Clapperboard: bevelled sticks, screws, a film reel out of focus in front */
-.clapper-stick::after, .clapper-base::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(180deg, rgba(255, 255, 255, .22), transparent 38%, rgba(0, 0, 0, .3)); }
+.clapper-stick::after, .clapper-base::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(180deg, rgba(255, 255, 255, .2), transparent 45%); pointer-events: none; }
 .screw { position: absolute; z-index: 2; width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #F5F5F2, #8A8A85 70%); box-shadow: 0 2px 3px rgba(0, 0, 0, .35); }
 .screw::after { content: ""; position: absolute; left: 3px; right: 3px; top: 7px; height: 2px; background: #55554F; rotate: 40deg; }
 .s-tl { left: 14px; top: 14px; }
@@ -601,13 +589,104 @@ main { position: relative; z-index: 1; overflow-x: clip; }
 .star-fg polygon { fill: var(--yellow); stroke: #fff; stroke-width: 6; stroke-linejoin: round; }
 .star-bg { left: 58%; top: 6%; width: 90px; opacity: .45; rotate: 18deg; }
 .star-bg polygon { fill: #4A63D6; }
-.next::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(90% 60% at 30% 0%, rgba(255, 255, 255, .14), transparent 60%), linear-gradient(180deg, transparent 70%, rgba(0, 0, 0, .25)); }
+.next::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(90% 60% at 30% 0%, rgba(255, 255, 255, .12), transparent 60%); }
 
 @media (max-width: 860px) {
-  .floppy, .reel, .mug, .pen, .eraser, .chalk-sticks, .blinds, .lock, .stk-ring { display: none; }
+  .floppy, .reel, .mug, .pen, .eraser, .chalk-sticks, .lock, .stk-ring { display: none; }
   .star-fg { width: 120px; right: -50px; }
   .fg { filter: blur(3px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .reel { animation: none; }
+}
+
+
+/* =====================================================================
+   INTERACTION
+   ===================================================================== */
+.hint-touch { display: none; }
+@media (hover: none), (pointer: coarse) {
+  .hint-fine { display: none; }
+  .hint-touch { display: inline; }
+}
+.hint { font-family: var(--f-chalk); font-size: 21px; line-height: 1.1; color: var(--red-dark); }
+.cluster .hint { position: absolute; left: 4%; top: -46px; z-index: 5; rotate: -3deg; }
+.board-brief .hint { margin-top: 8px; }
+.chalk-aside .hint-fine, .chalk-aside .hint-touch { color: var(--chalk); }
+
+/* Anything you can pick up */
+.can-drag { cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.can-drag:active, .is-dragging { cursor: grabbing; }
+.is-dragging { box-shadow: var(--shadow-lift) !important; }
+
+/* Hover lifts (individual transform properties, so they stack with scripted motion) */
+.pc, .note, .receipt, .frame, .quote, .origin, .ev, .letter, .contact, .idcard, .burst, .keyboard span, .stamp, .pushpin, .qr, .role li, .tags li, .metric-num {
+  transition: translate .35s cubic-bezier(.2, .8, .2, 1), scale .35s cubic-bezier(.2, .8, .2, 1), rotate .5s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease, background-color .25s ease, color .25s ease;
+}
+@media (hover: hover) {
+  .pc:hover, .note:hover, .receipt:hover, .quote:hover, .origin:hover, .ev:hover { translate: 0 -5px; box-shadow: var(--shadow-lift); }
+  .frame:hover { translate: 0 -10px; scale: 1.03; rotate: 0deg; }
+  .frame:hover .strip { box-shadow: 0 0 0 3px var(--yellow), 0 18px 28px -10px rgba(0, 0, 0, .5); }
+  .letter:hover { rotate: 0deg; }
+  .contact:hover { rotate: 0deg; scale: 1.02; }
+  .qr:hover { scale: 1.08; }
+  .pushpin:hover { scale: 1.25; }
+  .role li:hover { background: var(--red); }
+  .tags li:hover { background: #fff; }
+  .metric:hover .metric-num { scale: 1.06; rotate: -2deg; }
+  .metric:hover .arrow path { animation: redraw .9s ease forwards; }
+  .cs-rows li:hover { box-shadow: inset 4px 0 0 var(--red); background: rgba(215, 38, 61, .05); }
+  .spec div:hover { background: rgba(22, 22, 22, .07); }
+  .burst:hover { scale: 1.08; }
+}
+@keyframes redraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.cs-rows li { padding-left: 10px; margin-left: -10px; transition: box-shadow .25s ease, background-color .25s ease; }
+.spec div { transition: background-color .2s ease; }
+
+/* Keyboard you can press */
+.keyboard { pointer-events: auto; }
+.keyboard span { cursor: pointer; }
+.keyboard span:hover { translate: 0 2px; }
+.keyboard span:active, .keyboard span.is-down { translate: 0 4px; box-shadow: inset 0 -1px 0 #C9C1B1; }
+
+/* Stamp is a real button */
+button.stamp { background: transparent; font: inherit; font-family: var(--f-sans); font-size: 24px; font-weight: 800; cursor: pointer; }
+button.stamp:hover { scale: 1.06; }
+
+/* Clapperboard */
+button.clapper-stick { display: block; width: 100%; padding: 0; border: 0; font: inherit; cursor: grab; touch-action: none; }
+button.clapper-stick:active { cursor: grabbing; }
+button.clapper-stick:hover { filter: brightness(1.08); }
+.clap-pop { position: absolute; right: 2%; top: -64px; z-index: 3; font-family: var(--f-chalk); font-size: 34px; color: var(--yellow); opacity: 0; pointer-events: none; rotate: -6deg; }
+.slate-cols b { color: var(--ink); font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* Mini clap at the end */
+button.mini-clap { padding: 0; border: 0; background: transparent; cursor: pointer; }
+button.mini-clap:hover .mc-stick { rotate: -12deg; }
+.mc-stick { transition: rotate .2s ease; }
+
+/* Disc you can spin */
+.disc { cursor: grab; touch-action: none; }
+.disc:active { cursor: grabbing; }
+
+/* ID card you can swing */
+.idcard { cursor: grab; touch-action: none; }
+
+/* Sound toggle */
+.chapters .sound { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-left: 2px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #fff; cursor: pointer; }
+.chapters .sound:hover { background: rgba(255, 255, 255, .12); }
+.chapters .sound svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.chapters .sound .spk { fill: currentColor; }
+.chapters .sound .wave { display: none; }
+.chapters .sound[aria-pressed="true"] { color: var(--yellow); }
+.chapters .sound[aria-pressed="true"] .wave { display: inline; }
+.chapters .sound[aria-pressed="true"] .mute { display: none; }
+.chapters { order: 0; }
+@media (max-width: 820px) {
+  .chapters .now { margin-left: auto; margin-right: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc, .note, .receipt, .frame, .quote, .origin, .ev, .letter, .contact, .idcard, .burst, .keyboard span, .stamp, .pushpin, .qr, .role li, .tags li, .metric-num, .mc-stick { transition: none; }
+  .metric:hover .arrow path { animation: none; }
 }

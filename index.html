@@ -17,7 +17,6 @@
   <a class="skip" href="#impact">Skip to the impact</a>
   <div class="grain" aria-hidden="true"></div>
   <div class="light" aria-hidden="true"></div>
-  <div class="vignette" aria-hidden="true"></div>
   <div class="progress" aria-hidden="true"><span class="progress-bar"></span></div>
 
   <main>
@@ -31,7 +30,6 @@
       <div class="prop stylus" data-speed="0.5" aria-hidden="true"></div>
       <div class="prop floppy fg" data-speed="1.1" aria-hidden="true"><span class="fl-shutter"></span><span class="fl-label">TUQO_v0</span></div>
       <div class="lamp-glow" aria-hidden="true"></div>
-      <div class="blinds" aria-hidden="true"></div>
 
       <div class="hero-stage">
         <div class="folder lit">
@@ -66,6 +64,7 @@
           </div>
 
           <div class="cluster" data-strings="star">
+            <p class="hint"><span class="hint-fine">psst… drag the photos, pull the strings</span><span class="hint-touch">psst… tap the strings</span></p>
             <figure class="pc pc-main" data-pin>
               <span class="pushpin" aria-hidden="true"></span>
               <div class="ph">[Your photo]</div>
@@ -213,7 +212,7 @@
             <dt>Why it failed</dt><dd>[The honest reason: wrong customer, wrong price, too complex…]</dd>
             <dt>What I changed</dt><dd>[The pivot that turned it into TUQO]</dd>
           </dl>
-          <span class="stamp">Didn't work</span>
+          <button class="stamp" type="button" aria-label="Stamp it again: didn't work">Didn't work</button>
           <p class="v0-next">…so I started over ↓</p>
         </article>
       </div>
@@ -228,11 +227,12 @@
             <p class="type-tag">Chapter 02 · The build</p>
             <h2 class="chalk-title" data-reveal="write">So I built it. Take after take.</h2>
           </div>
-          <p class="chalk-aside" data-reveal="write">Each frame: what I made → what it changed ↓</p>
+          <p class="chalk-aside" data-reveal="write"><span class="hint-fine">Pull the clapper up and let go. Hover a frame ↓</span><span class="hint-touch">Tap the clapper. Each frame: what I made → what it changed ↓</span></p>
         </header>
 
         <div class="clapper">
-          <div class="clapper-stick" aria-hidden="true"><span class="hinge"></span></div>
+          <button class="clapper-stick" type="button" aria-label="Clap the clapperboard"><span class="hinge" aria-hidden="true"></span></button>
+          <span class="clap-pop" aria-hidden="true">Take 01!</span>
           <div class="clapper-base" aria-hidden="true"></div>
           <div class="slate lit">
             <span class="screw s-tl" aria-hidden="true"></span><span class="screw s-tr" aria-hidden="true"></span><span class="screw s-bl" aria-hidden="true"></span><span class="screw s-br" aria-hidden="true"></span>
@@ -241,7 +241,7 @@
               <span class="slate-tape">TUQO</span>
               <p class="slate-note">Self-taught: [skills] through [how: videos, failing, asking clients].</p>
             </div>
-            <div class="slate-cols" aria-hidden="true"><span>Roll</span><span>Scene</span><span>Take</span></div>
+            <div class="slate-cols" aria-hidden="true"><span>Roll <b>A</b></span><span>Scene <b class="scene-num">—</b></span><span>Take <b class="take-num">01</b></span></div>
 
             <ol class="film">
               <li class="frame">
@@ -305,7 +305,7 @@
               <p class="type-tag dark">Chapter 03 · Case file</p>
               <h2 class="case-title"><span class="ct-sans">[Project</span> <span class="ct-serif">name]</span></h2>
             </div>
-            <p class="board-brief">Client: <strong>[type of business]</strong>. Goal: [what they needed, in one sentence].</p>
+            <div class="board-brief"><p>Client: <strong>[type of business]</strong>. Goal: [what they needed, in one sentence].</p><p class="hint"><span class="hint-fine">Move the evidence around. Pull the string.</span><span class="hint-touch">Tap the string.</span></p></div>
           </header>
 
           <div class="evidence" data-strings="chain">
@@ -385,7 +385,7 @@
         </div>
 
         <footer class="end">
-          <div class="mini-clap" aria-hidden="true"><span class="mc-stick"></span><span class="mc-body"></span></div>
+          <button class="mini-clap" type="button" aria-label="Clap to close"><span class="mc-stick" aria-hidden="true"></span><span class="mc-body" aria-hidden="true"></span></button>
           <p class="end-line">That's a wrap. For now.</p>
           <p class="end-meta">© 2026 [Your Name] · TUQO</p>
         </footer>
@@ -396,6 +396,7 @@
   <nav class="chapters is-hidden" aria-label="Chapters">
     <a class="brand" href="#top">TUQO</a>
     <span class="now" aria-live="polite">Cover</span>
+    <button class="sound" type="button" aria-pressed="false" aria-label="Sound effects"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9h4l5-4v14l-5-4H4z"/><path class="wave" d="M16 9c1.5 1.5 1.5 4.5 0 6M18.5 6.5c3 3 3 8 0 11"/><path class="mute" d="M16 9l5 6M21 9l-5 6"/></svg></button>
     <ul>
       <li><a href="#impact" data-target="impact">Impact</a></li>
       <li><a href="#tldr" data-target="tldr">30 sec</a></li>
@@ -408,6 +409,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
   <script src="main.js"></script>
 </body>
