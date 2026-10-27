@@ -1088,3 +1088,17 @@ img.id-photo { height: auto; aspect-ratio: 1 / 1; }
 .brand-logo { display: block; width: auto; height: 15px; color: #fff; }
 .t-logo .disc { top: auto; bottom: -.2em; right: -.66em; }
 .t-logo + .t-serif { margin-top: .04em; }
+
+/* Hero photos open the live site: tap or click (drag still moves them) */
+.cluster .pc[data-href] { cursor: pointer; }
+@media (hover: hover) and (pointer: fine) { .cluster .pc.can-drag[data-href] { cursor: grab; } }
+.pc-link { color: inherit; text-decoration: none; }
+.pc-link span { font-family: var(--f-sans); font-size: .7em; vertical-align: .15em; opacity: .55; }
+.pc-link:hover, .pc-link:focus-visible { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+
+/* "8 projects live right now" under the CTA */
+.live-now { display: flex; align-items: center; gap: 9px; margin-top: 14px; font-family: var(--f-type); font-size: 13px; font-weight: 700; letter-spacing: .04em; color: rgba(22, 22, 22, .78); }
+.live-dot { position: relative; width: 9px; height: 9px; border-radius: 50%; background: #1FA855; }
+.live-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #1FA855; animation: live 1.8s ease-out infinite; }
+@keyframes live { to { scale: 2.8; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .live-dot::after { animation: none; } }

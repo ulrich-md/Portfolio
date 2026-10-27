@@ -483,6 +483,7 @@
         window.Draggable.create(el, {
           type: 'x,y', bounds, zIndexBoost: true, minimumMovement: 3, dragClickables: false,
           onPress() { stopDemo(); el.classList.add('is-dragging'); gsap.to(el, { scale: 1.05, duration: 0.2 }); play('pick'); },
+          onClick() { if (el.dataset.href) window.open(el.dataset.href, '_blank', 'noopener'); },
           onDrag() { tilt(base + clamp(-14, 14, this.deltaX * 1.6)); },
           onRelease() {
             el.classList.remove('is-dragging');
@@ -547,7 +548,10 @@
     /* Touch: a tap gives a little wiggle */
     document.querySelectorAll('.pc, .note, .receipt, .ev, .desk .obj').forEach((el) => {
       const base = gsap.getProperty(el, 'rotation');
-      el.addEventListener('click', () => gsap.fromTo(el, { rotation: base - 4 }, { rotation: base, duration: 0.8, ease: 'elastic.out(1, 0.3)' }));
+      el.addEventListener('click', (e) => {
+        if (el.dataset.href && !e.target.closest('a')) { window.open(el.dataset.href, '_blank', 'noopener'); return; }
+        gsap.fromTo(el, { rotation: base - 4 }, { rotation: base, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
+      });
     });
     document.querySelector('.disc').addEventListener('click', () => gsap.to('.disc', { rotation: '+=360', duration: 1.2, ease: 'power3.out' }));
   }
