@@ -865,3 +865,41 @@ img.id-photo { display: block; width: 100%; object-fit: cover; object-position: 
 .agent h3 { margin-top: 8px; font-size: 22px; line-height: 1.1; font-weight: 800; }
 .agent p { font-size: 15px; }
 .agent > p { margin-top: 6px; }
+
+/* ===================== COVER: who, spotlight, "these move" ===================== */
+.byline { margin-bottom: 12px; font-family: var(--f-type); font-size: 14px; letter-spacing: .04em; }
+.byline b { font-family: var(--f-sans); font-size: 17px; font-weight: 800; letter-spacing: 0; }
+.clients { margin-top: 14px; max-width: 460px; font-size: 15px; line-height: 1.45; }
+.clients span { display: inline-block; margin-right: 6px; padding: 1px 7px; background: var(--ink); color: var(--kraft, #C9A15A); font-family: var(--f-type); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; vertical-align: 2px; }
+
+.spotlight {
+  position: absolute; left: 6%; top: -40%; z-index: 0; width: 88%; height: 150%; pointer-events: none; mix-blend-mode: screen;
+  background:
+    radial-gradient(ellipse 48% 30% at 50% 66%, rgba(255, 238, 200, .5), rgba(255, 238, 200, 0) 70%),
+    conic-gradient(from 162deg at 50% 0%, rgba(255, 240, 205, 0) 0deg, rgba(255, 240, 205, .16) 12deg, rgba(255, 240, 205, .16) 24deg, rgba(255, 240, 205, 0) 36deg);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 30%, #000 80%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 30%, #000 80%, transparent 100%);
+  animation: spot 6s ease-in-out infinite;
+}
+@keyframes spot { 50% { opacity: .8; } }
+.spot-tag { position: absolute; top: -16px; right: -14px; z-index: 5; padding: 4px 9px; background: var(--yellow); color: var(--ink); font-family: var(--f-type); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; rotate: 7deg; box-shadow: var(--shadow-sm); }
+.pc-main .shot { aspect-ratio: 4 / 3; }
+.cluster .hint { font-size: 24px; }
+.ghost-hand { position: absolute; left: 0; top: 0; z-index: 8; width: 38px; height: 38px; opacity: 0; pointer-events: none; transform-origin: 30% 20%; }
+.ghost-hand svg { width: 100%; height: 100%; fill: #fff; stroke: var(--ink); stroke-width: 1.7; stroke-linejoin: round; stroke-linecap: round; filter: drop-shadow(0 3px 3px rgba(0, 0, 0, .35)); }
+@media (hover: hover) and (pointer: fine) {
+  .cluster .pc.can-drag:hover { outline: 2px dashed rgba(22, 22, 22, .45); outline-offset: 5px; }
+}
+
+/* Impact: dollars ⇄ pesos */
+.fx { margin-top: 12px; padding: 4px 12px; border: 1.5px dashed rgba(255, 255, 255, .55); border-radius: 999px; background: transparent; color: var(--chalk, #F2F0E6); font-family: var(--f-chalk); font-size: 18px; cursor: pointer; }
+.fx:hover, .fx[aria-pressed="true"] { border-style: solid; border-color: var(--yellow); color: var(--yellow); }
+.metric:has(.fx) .metric-num { perspective: 600px; }
+.contact-body a { display: block; }
+.spot-tag { top: -14px; right: auto; left: -16px; white-space: nowrap; rotate: -8deg; }
+.cluster .pc-main { width: 56%; left: 22%; top: 22%; }
+.spotlight { background:
+    radial-gradient(ellipse 46% 30% at 50% 64%, rgba(255, 238, 200, .8), rgba(255, 238, 200, 0) 72%),
+    conic-gradient(from 160deg at 50% 0%, rgba(255, 240, 205, 0) 0deg, rgba(255, 240, 205, .3) 12deg, rgba(255, 240, 205, .3) 28deg, rgba(255, 240, 205, 0) 40deg); }
+.metric-num.is-long { font-size: clamp(40px, 3.6vw, 56px); line-height: 1.5; }
+.cluster .pc-main.is-spot { box-shadow: 0 0 70px 24px rgba(255, 228, 160, .38), var(--shadow-sm); }

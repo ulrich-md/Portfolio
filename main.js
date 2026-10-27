@@ -252,6 +252,25 @@
   };
   envBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleEnvelope(); });
 
+  /* Impact: switch the earnings between dollars and pesos */
+  document.querySelectorAll('.fx').forEach((btn) => {
+    const metric = btn.closest('.metric');
+    const num = metric.querySelector('.metric-num');
+    const label = metric.querySelector('.metric-label');
+    btn.addEventListener('click', () => {
+      const mxn = btn.getAttribute('aria-pressed') !== 'true';
+      const k = mxn ? 'mxn' : 'usd';
+      btn.setAttribute('aria-pressed', String(mxn));
+      btn.textContent = mxn ? 'Show in dollars ⇄' : 'Show in pesos ⇄';
+      num.dataset.frozen = '1';
+      num.textContent = num.dataset[k];
+      num.classList.toggle('is-long', mxn);
+      label.textContent = label.dataset[k];
+      if (window.gsap && !reduce) window.gsap.fromTo(num, { rotationX: -90, opacity: 0 }, { rotationX: 0, opacity: 1, duration: 0.45, ease: 'back.out(2)' });
+      play('key');
+    });
+  });
+
   const send = desk.querySelector('.phone-send');
   const reply = desk.querySelector('.bubble.out');
   const typing = desk.querySelector('.typing');
@@ -392,7 +411,7 @@
     gsap.to(state, {
       v: end, duration: 1.6, ease: 'power2.out',
       scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-      onUpdate: () => { el.textContent = m[1] + Math.round(state.v).toLocaleString('en-US') + m[3]; },
+      onUpdate: () => { if (!el.dataset.frozen) el.textContent = m[1] + Math.round(state.v).toLocaleString('en-US') + m[3]; },
     });
   });
 
@@ -444,13 +463,37 @@
 
   /* Pick up photos, notes, receipts and stickers */
   if (hasDrag && finePointer) {
+    /* Show, don't tell: a ghost hand drags a photo until the visitor tries it */
+    const hand = document.querySelector('.ghost-hand');
+    const demoEl = document.querySelector('.cluster .pc-c');
+    let demo = null;
+    const stopDemo = () => {
+      if (!demo) return;
+      demo.progress(0).kill();
+      demo = null;
+      gsap.to(hand, { opacity: 0, duration: 0.2 });
+    };
+    if (hand && demoEl) {
+      const hx = demoEl.offsetLeft + demoEl.offsetWidth * 0.5;
+      const hy = demoEl.offsetTop + demoEl.offsetHeight * 0.45;
+      gsap.set(hand, { x: hx + 70, y: hy + 80, opacity: 0 });
+      demo = gsap.timeline({ delay: 3.4, repeat: -1, repeatDelay: 4.5 })
+        .to(hand, { opacity: 1, x: hx, y: hy, duration: 0.6, ease: 'power2.out' })
+        .to(hand, { scale: 0.82, duration: 0.15 })
+        .to([hand, demoEl], { x: '-=110', y: '-=46', duration: 0.9, ease: 'power2.inOut' })
+        .to(demoEl, { rotation: -9, duration: 0.45, ease: 'sine.inOut', yoyo: true, repeat: 1 }, '<')
+        .to([hand, demoEl], { x: '+=110', y: '+=46', duration: 0.8, ease: 'back.inOut(1.4)' }, '+=0.25')
+        .to(hand, { scale: 1, duration: 0.15 })
+        .to(hand, { opacity: 0, x: '+=60', y: '+=60', duration: 0.5, ease: 'power2.in' });
+    }
+
     const makeDrag = (selector, bounds) => {
       gsap.utils.toArray(selector).forEach((el) => {
         el.classList.add('can-drag');
         const tilt = gsap.quickTo(el, 'rotation', { duration: 0.45, ease: 'power3' });
         window.Draggable.create(el, {
           type: 'x,y', bounds, zIndexBoost: true, minimumMovement: 3, dragClickables: false,
-          onPress() { el.classList.add('is-dragging'); gsap.to(el, { scale: 1.05, duration: 0.2 }); play('pick'); },
+          onPress() { stopDemo(); el.classList.add('is-dragging'); gsap.to(el, { scale: 1.05, duration: 0.2 }); play('pick'); },
           onDrag() { tilt(clamp(-14, 14, this.deltaX * 1.6)); },
           onRelease() {
             el.classList.remove('is-dragging');
