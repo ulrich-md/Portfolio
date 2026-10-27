@@ -2,6 +2,9 @@
   const root = document.documentElement;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  /* Tablets (iPad) get the same hands-on drag as a mouse; phones keep taps so the page still scrolls */
+  const tablet = window.matchMedia('(pointer: coarse) and (min-width: 700px)').matches;
+  const handsOn = finePointer || tablet;
   const hasGsap = Boolean(window.gsap && window.ScrollTrigger);
   const clamp = (min, max, v) => Math.min(max, Math.max(min, v));
 
@@ -167,7 +170,7 @@
     });
     L.hit.addEventListener('pointerdown', (e) => {
       e.preventDefault();
-      if (!finePointer) { pluck(L, 34); play('pluck', 1); return; }
+      if (!handsOn) { pluck(L, 34); play('pluck', 1); return; }
       L.hit.setPointerCapture(e.pointerId);
       activePull = { B, L };
       L.pull = localPoint(B, e);
@@ -334,6 +337,8 @@
      ===================================================================== */
   const { gsap, ScrollTrigger } = window;
   gsap.registerPlugin(ScrollTrigger);
+  /* iOS shows and hides its address bar while scrolling; don't recalculate every trigger when it does */
+  ScrollTrigger.config({ ignoreMobileResize: true });
   const hasDrag = Boolean(window.Draggable);
   if (hasDrag) gsap.registerPlugin(window.Draggable);
   gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.3 } });
@@ -415,9 +420,10 @@
     }, 0.1)
     .fromTo('.circled path', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut' }, '-=0.2');
 
-  /* Case: pinned evidence board */
+  /* Case: pinned evidence board. Measure it only once the fonts are in, or fallback text can make it look too tall to pin */
   const mm = gsap.matchMedia();
-  mm.add({ desktop: '(min-width: 900px)', mobile: '(max-width: 899px)' }, (c) => {
+  const fontsIn = document.fonts ? document.fonts.ready : Promise.resolve();
+  fontsIn.then(() => mm.add({ desktop: '(min-width: 900px)', mobile: '(max-width: 899px)' }, (c) => {
     const casePin = document.querySelector('.case-pin');
     const board = document.querySelector('.board');
     const canPin = c.conditions.desktop && board.offsetHeight < window.innerHeight - 40;
@@ -436,14 +442,14 @@
     tl.from('.delta', { scale: 0.8, opacity: 0, duration: 0.5, ease: 'back.out(2)' })
       .from('.role li', { y: 20, opacity: 0, duration: 0.3, stagger: 0.08 });
     return () => casePin.classList.remove('is-p');
-  });
+  })).then(() => ScrollTrigger.refresh());
 
   /* =====================================================================
      Hands-on: things you can pick up, spin, swing and press
      ===================================================================== */
 
   /* Pick up photos, notes, receipts and stickers */
-  if (hasDrag && finePointer) {
+  if (hasDrag && handsOn) {
     /* Show, don't tell: a ghost hand drags a photo until the visitor tries it */
     const hand = document.querySelector('.ghost-hand');
     const demoEl = document.querySelector('.cluster .pc-c');
@@ -466,19 +472,21 @@
         .to([hand, demoEl], { x: '+=110', y: '+=46', duration: 0.8, ease: 'back.inOut(1.4)' }, '+=0.25')
         .to(hand, { scale: 1, duration: 0.15 })
         .to(hand, { opacity: 0, x: '+=60', y: '+=60', duration: 0.5, ease: 'power2.in' });
+      ScrollTrigger.create({ trigger: '.hero', start: 'top bottom', end: 'bottom top', onToggle: (self) => { if (demo) demo.paused(!self.isActive); } });
     }
 
     const makeDrag = (selector, bounds) => {
       gsap.utils.toArray(selector).forEach((el) => {
         el.classList.add('can-drag');
+        const base = gsap.getProperty(el, 'rotation');
         const tilt = gsap.quickTo(el, 'rotation', { duration: 0.45, ease: 'power3' });
         window.Draggable.create(el, {
           type: 'x,y', bounds, zIndexBoost: true, minimumMovement: 3, dragClickables: false,
           onPress() { stopDemo(); el.classList.add('is-dragging'); gsap.to(el, { scale: 1.05, duration: 0.2 }); play('pick'); },
-          onDrag() { tilt(clamp(-14, 14, this.deltaX * 1.6)); },
+          onDrag() { tilt(base + clamp(-14, 14, this.deltaX * 1.6)); },
           onRelease() {
             el.classList.remove('is-dragging');
-            tilt(0);
+            tilt(base);
             gsap.to(el, { scale: 1, duration: 0.5, ease: 'back.out(3)' });
             play('drop');
           },
@@ -496,6 +504,7 @@
     let deskZ = 6;
     gsap.utils.toArray('.desk .obj').forEach((el) => {
       el.classList.add('can-drag');
+      const base = gsap.getProperty(el, 'rotation');
       const tilt = gsap.quickTo(el, 'rotation', { duration: 0.45, ease: 'power3' });
       window.Draggable.create(el, {
         type: 'x,y', bounds: desk, zIndexBoost: false, minimumMovement: 3,
@@ -507,10 +516,10 @@
           gsap.to(el, { scale: 1.04, duration: 0.2 });
           play('pick');
         },
-        onDrag() { tilt(clamp(-12, 12, this.deltaX * 1.4)); },
+        onDrag() { tilt(base + clamp(-12, 12, this.deltaX * 1.4)); },
         onRelease() {
           el.classList.remove('is-dragging');
-          tilt(0);
+          tilt(base);
           gsap.to(el, { scale: 1, duration: 0.5, ease: 'back.out(3)' });
           play('drop');
         },
@@ -537,7 +546,8 @@
   } else {
     /* Touch: a tap gives a little wiggle */
     document.querySelectorAll('.pc, .note, .receipt, .ev, .desk .obj').forEach((el) => {
-      el.addEventListener('click', () => gsap.fromTo(el, { rotation: -4 }, { rotation: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)' }));
+      const base = gsap.getProperty(el, 'rotation');
+      el.addEventListener('click', () => gsap.fromTo(el, { rotation: base - 4 }, { rotation: base, duration: 0.8, ease: 'elastic.out(1, 0.3)' }));
     });
     document.querySelector('.disc').addEventListener('click', () => gsap.to('.disc', { rotation: '+=360', duration: 1.2, ease: 'power3.out' }));
   }
@@ -548,7 +558,7 @@
   const swing = gsap.quickTo(card, 'rotation', { duration: 0.35, ease: 'power3' });
   let cardDrag = null;
   card.addEventListener('pointerdown', (e) => {
-    if (!finePointer) return;
+    if (!handsOn) return;
     e.preventDefault();
     card.setPointerCapture(e.pointerId);
     cardDrag = { x: e.clientX };
@@ -565,7 +575,7 @@
   card.addEventListener('pointerup', cardUp);
   card.addEventListener('pointercancel', cardUp);
   card.addEventListener('pointerenter', () => { if (!cardDrag) gsap.fromTo(card, { rotation: 4 }, { rotation: 0, duration: 1.6, ease: 'elastic.out(1, 0.25)', overwrite: true }); });
-  card.addEventListener('click', () => { if (!finePointer) gsap.fromTo(card, { rotation: 18 }, { rotation: 0, duration: 2, ease: 'elastic.out(1, 0.22)' }); });
+  card.addEventListener('click', () => { if (!handsOn) gsap.fromTo(card, { rotation: 18 }, { rotation: 0, duration: 2, ease: 'elastic.out(1, 0.22)' }); });
 
   /* The 2026 sticker spins when you touch it */
   const burst = document.querySelector('.burst');

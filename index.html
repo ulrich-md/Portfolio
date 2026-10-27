@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&amp;family=Courier+Prime:wght@400;700&amp;family=Gochi+Hand&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+  <link rel="preload" as="image" href="assets/img/folder.webp" fetchpriority="high">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,17 +23,17 @@
   <main>
     <!-- ================= COVER: the folder on the desk ================= -->
     <section class="hero" id="top" data-bg="#141416" data-label="Cover">
-      <img class="prop keyboard-photo" data-speed="-0.4" src="assets/img/keyboard.webp" alt="" width="899" height="590">
+      <img decoding="async" class="prop keyboard-photo" data-speed="-0.4" src="assets/img/keyboard.webp" alt="" width="899" height="590">
       <div class="prop stylus" data-speed="0.5" aria-hidden="true"></div>
       <div class="prop floppy fg" data-speed="1.1" aria-hidden="true"><span class="fl-shutter"></span><span class="fl-label">TUQO_v0</span></div>
       <div class="lamp-glow" aria-hidden="true"></div>
-      <img class="prop hero-mug" data-speed="0.25" src="assets/img/coffee.webp" alt="" width="454" height="275">
-      <img class="prop hero-plant" data-speed="0.6" src="assets/img/terrarium.webp" alt="" width="600" height="337">
+      <img decoding="async" class="prop hero-mug" data-speed="0.25" src="assets/img/coffee.webp" alt="" width="454" height="275">
+      <img decoding="async" class="prop hero-plant" data-speed="0.6" src="assets/img/terrarium.webp" alt="" width="600" height="337">
 
       <div class="hero-stage">
         <div class="folder lit">
           <span class="coffee-ring" aria-hidden="true"></span>
-          <img class="folder-photo" src="assets/img/folder.webp" alt="" width="1600" height="1075" draggable="false">
+          <img decoding="async" fetchpriority="high" class="folder-photo" src="assets/img/folder.webp" alt="" width="1600" height="1075" draggable="false">
           <span class="folder-light" aria-hidden="true"></span>
           <svg class="burst" viewBox="0 0 160 160" aria-hidden="true">
             <polygon points="80,4 96,46 140,22 118,64 158,80 118,96 140,138 96,114 80,156 64,114 20,138 42,96 2,80 42,64 20,22 64,46"/>
@@ -67,22 +68,22 @@
             <figure class="pc pc-main is-spot" data-pin>
               <span class="pushpin" aria-hidden="true"></span>
               <span class="spot-tag">★ Spotlight</span>
-              <img class="shot" src="assets/proof/mastretta.webp" alt="Ángeles Mastretta's official website, built by TUQO" width="1152" height="720" draggable="false">
+              <img decoding="async" class="shot" src="assets/proof/mastretta.webp" alt="Ángeles Mastretta's official website, built by TUQO" width="1152" height="720" draggable="false">
               <figcaption class="marker">Ángeles Mastretta</figcaption>
             </figure>
             <figure class="pc pc-a" data-pin>
               <span class="pushpin" aria-hidden="true"></span>
-              <img class="shot" src="assets/proof/nexos.webp" alt="Archivo Nexos, the AI chatbot TUQO built over the magazine's archive" width="1152" height="720" draggable="false">
+              <img decoding="async" class="shot" src="assets/proof/nexos.webp" alt="Archivo Nexos, the AI chatbot TUQO built over the magazine's archive" width="1152" height="720" draggable="false">
               <figcaption class="marker">Archivo Nexos</figcaption>
             </figure>
             <figure class="pc pc-b" data-pin>
               <span class="pushpin" aria-hidden="true"></span>
-              <img class="shot" src="assets/proof/mog.webp" alt="MOG México website, built by TUQO" width="1152" height="720" draggable="false">
+              <img decoding="async" class="shot" src="assets/proof/mog.webp" alt="MOG México website, built by TUQO" width="1152" height="720" draggable="false">
               <figcaption class="marker">MOG México</figcaption>
             </figure>
             <figure class="pc pc-c" data-pin>
               <span class="pushpin" aria-hidden="true"></span>
-              <img class="shot" src="assets/proof/manzanita.webp" alt="Manzanita Balseca website, built by TUQO" width="1152" height="720" draggable="false">
+              <img decoding="async" class="shot" src="assets/proof/manzanita.webp" alt="Manzanita Balseca website, built by TUQO" width="1152" height="720" draggable="false">
               <figcaption class="marker">Manzanita Balseca</figcaption>
             </figure>
             <span class="ghost-hand" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M11 15V6.5a2 2 0 0 1 4 0V13m0-1.5v-2a2 2 0 0 1 4 0V14m0-2a2 2 0 0 1 4 0v3m0-1a2 2 0 0 1 4 0v6c0 5-3.5 9-8.5 9h-1.5c-3 0-5-1.5-6.8-4L4.6 20a2 2 0 0 1 3-2.6L11 20"/></svg></span>
@@ -93,7 +94,7 @@
           <span class="strap" aria-hidden="true"></span>
           <div class="idcard">
             <span class="id-clip" aria-hidden="true"></span>
-            <img class="id-photo" src="assets/img/me-id.jpg" alt="" width="440" height="484" draggable="false">
+            <img decoding="async" class="id-photo" src="assets/img/me-id.jpg" alt="" width="440" height="484" draggable="false">
             <p class="id-name marker">Ulrich Mohrhardt Doger</p>
             <p class="id-role">Founder, TUQO</p>
             <p class="id-meta">Tehuacán, Mexico · Age 18</p>
@@ -146,7 +147,7 @@
         <ul class="receipts works" aria-label="Live projects">
           <li class="receipt work" data-reveal="drop">
             <a class="work-link" href="https://angelesmastretta.com" target="_blank" rel="noopener">
-              <img class="shot" src="assets/proof/mastretta.webp" alt="Screenshot of Ángeles Mastretta" width="1152" height="720" loading="lazy">
+              <img decoding="async" class="shot" src="assets/proof/mastretta.webp" alt="Screenshot of Ángeles Mastretta" width="1152" height="720" loading="lazy">
               <span class="type-tag dark">Author</span>
               <h3>Ángeles Mastretta</h3>
               <p>Official site for the novelist behind <i>Arráncame la vida</i>: biography, works, blogs, interviews. ES / EN.</p>
@@ -155,7 +156,7 @@
           </li>
           <li class="receipt work" data-reveal="drop">
             <a class="work-link" href="https://www.archivonexos.online" target="_blank" rel="noopener">
-              <img class="shot" src="assets/proof/nexos.webp" alt="Screenshot of Archivo Nexos" width="1152" height="720" loading="lazy">
+              <img decoding="async" class="shot" src="assets/proof/nexos.webp" alt="Screenshot of Archivo Nexos" width="1152" height="720" loading="lazy">
               <span class="type-tag dark">Magazine · AI</span>
               <h3>Archivo Nexos</h3>
               <p>A chatbot for the Nexos newsroom that answers only from the magazine's own archive: 32,942 texts.</p>
@@ -164,7 +165,7 @@
           </li>
           <li class="receipt work" data-reveal="drop">
             <a class="work-link" href="https://casa-balseca.vercel.app" target="_blank" rel="noopener">
-              <img class="shot" src="assets/proof/casa.webp" alt="Screenshot of Casa Balseca" width="1152" height="720" loading="lazy">
+              <img decoding="async" class="shot" src="assets/proof/casa.webp" alt="Screenshot of Casa Balseca" width="1152" height="720" loading="lazy">
               <span class="type-tag dark">Wine</span>
               <h3>Casa Balseca</h3>
               <p>Launch site for a Ribera del Duero red sold in limited, hand-numbered editions.</p>
@@ -173,7 +174,7 @@
           </li>
           <li class="receipt work" data-reveal="drop">
             <a class="work-link" href="https://manzanita-balseca-landing.lovable.app" target="_blank" rel="noopener">
-              <img class="shot" src="assets/proof/manzanita.webp" alt="Screenshot of Manzanita Balseca" width="1152" height="720" loading="lazy">
+              <img decoding="async" class="shot" src="assets/proof/manzanita.webp" alt="Screenshot of Manzanita Balseca" width="1152" height="720" loading="lazy">
               <span class="type-tag dark">Bottler</span>
               <h3>Manzanita Balseca</h3>
               <p>Brand site for an apple soda bottled in Tehuacán, Puebla, since 1929.</p>
@@ -182,7 +183,7 @@
           </li>
           <li class="receipt work" data-reveal="drop">
             <a class="work-link" href="https://mog-mx.vercel.app" target="_blank" rel="noopener">
-              <img class="shot" src="assets/proof/mog.webp" alt="Screenshot of MOG México" width="1152" height="720" loading="lazy">
+              <img decoding="async" class="shot" src="assets/proof/mog.webp" alt="Screenshot of MOG México" width="1152" height="720" loading="lazy">
               <span class="type-tag dark">Bottling plant</span>
               <h3>MOG México</h3>
               <p>Site for a Tehuacán plant that bottles mineral water under your own brand.</p>
@@ -191,7 +192,7 @@
           </li>
           <li class="receipt work" data-reveal="drop">
             <a class="work-link" href="https://marco-balseca.vercel.app" target="_blank" rel="noopener">
-              <img class="shot" src="assets/proof/marco.webp" alt="Screenshot of Marco Balseca" width="1152" height="720" loading="lazy">
+              <img decoding="async" class="shot" src="assets/proof/marco.webp" alt="Screenshot of Marco Balseca" width="1152" height="720" loading="lazy">
               <span class="type-tag dark">Politics</span>
               <h3>Marco Balseca</h3>
               <p>Homepage for a public official in Tehuacán: news, track record, agenda, volunteer sign-up.</p>
@@ -200,7 +201,7 @@
           </li>
           <li class="receipt work" data-reveal="drop">
             <a class="work-link" href="https://peer-tutoring-henna.vercel.app" target="_blank" rel="noopener">
-              <img class="shot" src="assets/proof/tutoring.webp" alt="Screenshot of Peer Tutoring, UWC Costa Rica" width="1000" height="625" loading="lazy">
+              <img decoding="async" class="shot" src="assets/proof/tutoring.webp" alt="Screenshot of Peer Tutoring, UWC Costa Rica" width="1000" height="625" loading="lazy">
               <span class="type-tag dark">School · free</span>
               <h3>Peer Tutoring, UWC Costa Rica</h3>
               <p>A tutor directory for my school: book a session, check in with a code, rate your tutor.</p>
@@ -209,9 +210,9 @@
           </li>
           <li class="receipt work agent" data-reveal="drop">
             <div class="ally-shots" aria-label="Screenshots of Ally in WhatsApp">
-              <img src="assets/proof/ally-start.webp" alt="Ally explaining how to start: send a voice note listing everything pending" width="520" height="809" loading="lazy">
-              <img src="assets/proof/ally-chat.webp" alt="Ally scheduling an appointment from chat and turning a voice note into text" width="520" height="956" loading="lazy">
-              <img src="assets/proof/ally-list.webp" alt="Ally's read-only list page with a daily 7:00 morning summary" width="520" height="943" loading="lazy">
+              <img decoding="async" src="assets/proof/ally-start.webp" alt="Ally explaining how to start: send a voice note listing everything pending" width="520" height="809" loading="lazy">
+              <img decoding="async" src="assets/proof/ally-chat.webp" alt="Ally scheduling an appointment from chat and turning a voice note into text" width="520" height="956" loading="lazy">
+              <img decoding="async" src="assets/proof/ally-list.webp" alt="Ally's read-only list page with a daily 7:00 morning summary" width="520" height="943" loading="lazy">
             </div>
             <span class="type-tag dark">In beta · AI agent</span>
             <h3>Ally, an assistant that lives in WhatsApp</h3>
@@ -308,7 +309,7 @@
             <p class="type-tag">Chapter 02 · The build</p>
             <h2 class="chalk-title" data-reveal="write">So I built it, one late night at a time.</h2>
           </div>
-          <p class="chalk-aside" data-reveal="write"><span class="hint-fine">Drag the lamp. Click it to switch it off. Pick anything up.</span><span class="hint-touch">Tap the lamp, the phone and the envelope.</span></p>
+          <p class="chalk-aside" data-reveal="write"><span class="hint-fine">Drag the lamp. Tap it to switch it off. Pick anything up.</span><span class="hint-touch">Tap the lamp, the phone and the envelope.</span></p>
         </header>
       </div>
 
@@ -316,10 +317,10 @@
         <div class="desk-grain" aria-hidden="true"></div>
 
         <!-- decor -->
-        <img class="plant deco" src="assets/img/terrarium.webp" alt="" width="600" height="337">
+        <img loading="lazy" decoding="async" class="plant deco" src="assets/img/terrarium.webp" alt="" width="600" height="337">
         <div class="keyboard-dk deco" aria-hidden="true"></div>
         <div class="mouse deco" aria-hidden="true"></div>
-        <div class="cup obj" aria-hidden="true"><img src="assets/img/coffee.webp" alt="" width="454" height="275" draggable="false"><span class="steam s1"></span><span class="steam s2"></span></div>
+        <div class="cup obj" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/img/coffee.webp" alt="" width="454" height="275" draggable="false"><span class="steam s1"></span><span class="steam s2"></span></div>
         <div class="spill deco" aria-hidden="true"></div>
         <div class="pen-dk deco" aria-hidden="true"></div>
         <div class="pencil-dk deco" aria-hidden="true"></div>
@@ -332,7 +333,7 @@
           <div class="bezel">
             <div class="screen">
               <div class="browser-bar" aria-hidden="true"><span></span><span></span><span></span><p>angelesmastretta.com</p></div>
-              <img class="screen-shot" src="assets/proof/mastretta.webp" alt="Ángeles Mastretta's official website" width="1152" height="720" loading="lazy" draggable="false">
+              <img decoding="async" class="screen-shot" src="assets/proof/mastretta.webp" alt="Ángeles Mastretta's official website" width="1152" height="720" loading="lazy" draggable="false">
             </div>
             <button class="power" type="button" aria-label="Turn the monitor off and on again"></button>
           </div>
@@ -360,7 +361,7 @@
 
         <!-- Scene 03: the automation printout -->
         <article class="obj sheet flow-sheet">
-          <img class="binder-photo small" src="assets/img/binder.webp" alt="" width="420" height="420">
+          <img loading="lazy" decoding="async" class="binder-photo small" src="assets/img/binder.webp" alt="" width="420" height="420">
           <p class="obj-meta">Scene 03</p>
           <h3>How the archive works</h3>
           <ol class="mini-flow">
@@ -390,7 +391,7 @@
 
         <!-- Scene 06: the envelope -->
         <article class="obj envelope">
-          <div class="env-letter" aria-hidden="true"><img src="assets/proof/ally-chat.webp" alt="" width="520" height="956" loading="lazy"></div>
+          <div class="env-letter" aria-hidden="true"><img decoding="async" src="assets/proof/ally-chat.webp" alt="" width="520" height="956" loading="lazy"></div>
           <div class="env-body">
             <p class="obj-meta">Scene 06 · Next</p>
             <h3>Ally</h3>
@@ -415,10 +416,10 @@
     <section class="chapter case" id="case" data-bg="#141416" data-label="03 Case">
       <div class="case-pin">
         <div class="lamp-pool" aria-hidden="true"></div>
-        <img class="prop mug-photo fg" src="assets/img/coffee.webp" alt="" width="454" height="275">
+        <img loading="lazy" decoding="async" class="prop mug-photo fg" src="assets/img/coffee.webp" alt="" width="454" height="275">
         <div class="prop pen" aria-hidden="true"></div>
         <article class="board lit">
-          <img class="binder-photo" src="assets/img/binder.webp" alt="" width="420" height="420">
+          <img loading="lazy" decoding="async" class="binder-photo" src="assets/img/binder.webp" alt="" width="420" height="420">
           <header class="board-head">
             <div>
               <p class="type-tag dark">Chapter 03 · Case file</p>
@@ -430,7 +431,7 @@
           <div class="evidence" data-strings="chain">
             <figure class="ev pc" data-pin>
               <span class="pushpin" aria-hidden="true"></span>
-              <img class="shot" src="assets/proof/mastretta.webp" alt="Ángeles Mastretta's official website" width="1152" height="720" loading="lazy" draggable="false">
+              <img decoding="async" class="shot" src="assets/proof/mastretta.webp" alt="Ángeles Mastretta's official website" width="1152" height="720" loading="lazy" draggable="false">
               <figcaption><span class="ev-tag">Built</span>Her official site: biography (with audio), works, blogs, interviews. ES / EN.</figcaption>
             </figure>
             <figure class="ev ev-paper" data-pin>
@@ -444,7 +445,7 @@
             </figure>
             <figure class="ev pc" data-pin>
               <span class="pushpin" aria-hidden="true"></span>
-              <img class="shot" src="assets/proof/nexos.webp" alt="Archivo Nexos chatbot" width="1152" height="720" loading="lazy" draggable="false">
+              <img decoding="async" class="shot" src="assets/proof/nexos.webp" alt="Archivo Nexos chatbot" width="1152" height="720" loading="lazy" draggable="false">
               <figcaption><span class="ev-tag">After</span>The newsroom asks the archive in plain Spanish. <a href="https://www.archivonexos.online" target="_blank" rel="noopener">Try it ↗</a></figcaption>
             </figure>
             <figure class="ev ev-note" data-pin>
@@ -484,7 +485,7 @@
 
         <div class="next-grid">
           <article class="letter lit" data-reveal="up">
-            <img class="binder-photo small" src="assets/img/binder.webp" alt="" width="420" height="420">
+            <img loading="lazy" decoding="async" class="binder-photo small" src="assets/img/binder.webp" alt="" width="420" height="420">
             <p class="type-tag dark red">What's next</p>
             <p class="letter-hi">Dear Admissions,</p>
             <p>TUQO taught me that a stranger on Instagram can become a client, and a client can open the next door. I learned business by doing it.</p>

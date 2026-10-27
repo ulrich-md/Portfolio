@@ -695,7 +695,7 @@ main { position: relative; z-index: 1; overflow-x: clip; }
    INTERACTION
    ===================================================================== */
 .hint-touch { display: none; }
-@media (hover: none), (pointer: coarse) {
+@media (hover: none) and (max-width: 699px), (pointer: coarse) and (max-width: 699px) {
   .hint-fine { display: none; }
   .hint-touch { display: inline; }
 }
@@ -1065,3 +1065,16 @@ img.id-photo { height: auto; aspect-ratio: 1 / 1; }
 .ally-shots img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 8px; }
 .env-letter { padding: 8px; overflow: hidden; }
 .env-letter img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 3px; }
+
+/* Touch screens: picking things up shouldn't select text or open the iOS image menu */
+.can-drag, .can-drag img, .strings, .idcard, .disc { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+.can-drag { touch-action: none; }
+/* iPad portrait: one column, so let the copy use the width */
+@media (min-width: 700px) and (max-width: 860px) {
+  .t-sans { font-size: 15vw; }
+  .t-serif { font-size: 10.5vw; }
+  .thesis { max-width: 38ch; font-size: 22px; }
+  .spec { max-width: 620px; }
+  .spec dd { font-size: 22px; }
+  .cluster { max-height: 640px; }
+}
