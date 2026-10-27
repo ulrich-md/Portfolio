@@ -27,7 +27,7 @@ Sitio web estático (HTML + CSS + JS, sin build) que cuenta la historia de TUQO 
 | Asistente de WhatsApp (con Ally) | Agente de IA, en desarrollo | — | Impact, call sheet, lecciones |
 | Peer Tutoring | Proyecto escolar, UWC Costa Rica | https://peer-tutoring-henna.vercel.app | Impact, recorte de periódico |
 
-Las capturas están en `assets/proof/`. Tu foto está en `assets/img/me.jpg` (polaroid) y `assets/img/me-id.jpg` (credencial). Las tomé de los sitios en vivo; si cambias un sitio, vuelve a tomarlas.
+Los enlaces muestran "Visit the live site" en lugar de la URL de Vercel o Lovable. Las capturas están en `assets/proof/`. Tu foto está en `assets/img/me.jpg` (polaroid) y `assets/img/me-id.jpg` (credencial). Las tomé de los sitios en vivo; si cambias un sitio, vuelve a tomarlas.
 
 ## Cómo completarlo
 

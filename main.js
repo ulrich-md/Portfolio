@@ -252,25 +252,6 @@
   };
   envBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleEnvelope(); });
 
-  /* Impact: switch the earnings between dollars and pesos */
-  document.querySelectorAll('.fx').forEach((btn) => {
-    const metric = btn.closest('.metric');
-    const num = metric.querySelector('.metric-num');
-    const label = metric.querySelector('.metric-label');
-    btn.addEventListener('click', () => {
-      const mxn = btn.getAttribute('aria-pressed') !== 'true';
-      const k = mxn ? 'mxn' : 'usd';
-      btn.setAttribute('aria-pressed', String(mxn));
-      btn.textContent = mxn ? 'Show in dollars ⇄' : 'Show in pesos ⇄';
-      num.dataset.frozen = '1';
-      num.textContent = num.dataset[k];
-      num.classList.toggle('is-long', mxn);
-      label.textContent = label.dataset[k];
-      if (window.gsap && !reduce) window.gsap.fromTo(num, { rotationX: -90, opacity: 0 }, { rotationX: 0, opacity: 1, duration: 0.45, ease: 'back.out(2)' });
-      play('key');
-    });
-  });
-
   const send = desk.querySelector('.phone-send');
   const reply = desk.querySelector('.bubble.out');
   const typing = desk.querySelector('.typing');
