@@ -354,9 +354,7 @@
     .from('.cluster .pc', { y: -60, scale: 1.15, opacity: 0, duration: 0.6, stagger: 0.12, ease: 'back.out(1.6)' }, '-=0.9')
     .fromTo('.cluster .strings .str', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.9, stagger: 0.08, ease: 'power2.inOut' }, '-=0.2')
     .from('.cluster .hint', { opacity: 0, y: 10, duration: 0.5 }, '-=0.3')
-    .from('.lanyard', { y: -260, duration: 0.8, ease: 'power2.in' }, 0.5)
-    .from('.idcard', { rotation: 20, transformOrigin: '50% -180px', duration: 2.4, ease: 'elastic.out(1, 0.28)' }, 1.3)
-    .from('.motto', { scale: 1.6, opacity: 0, duration: 0.5, ease: 'back.out(2.5)' }, 1.8);
+    .from('.badge', { y: -40, opacity: 0, duration: 1, ease: 'power3.out' }, 0.6);
 
   /* Depth: props drift with the page; blurred foreground props move fastest */
   gsap.utils.toArray('[data-speed]').forEach((el) => {
@@ -555,31 +553,6 @@
     });
     document.querySelector('.disc').addEventListener('click', () => gsap.to('.disc', { rotation: '+=360', duration: 1.2, ease: 'power3.out' }));
   }
-
-  /* Swing the ID card on its lanyard */
-  const card = document.querySelector('.idcard');
-  gsap.set(card, { transformOrigin: '50% -180px' });
-  const swing = gsap.quickTo(card, 'rotation', { duration: 0.35, ease: 'power3' });
-  let cardDrag = null;
-  card.addEventListener('pointerdown', (e) => {
-    if (!handsOn) return;
-    e.preventDefault();
-    card.setPointerCapture(e.pointerId);
-    cardDrag = { x: e.clientX };
-    gsap.killTweensOf(card, 'rotation');
-  });
-  card.addEventListener('pointermove', (e) => {
-    if (cardDrag) swing(clamp(-35, 35, (e.clientX - cardDrag.x) * 0.18));
-  });
-  const cardUp = () => {
-    if (!cardDrag) return;
-    cardDrag = null;
-    gsap.to(card, { rotation: 0, duration: 2.4, ease: 'elastic.out(1, 0.22)', overwrite: true });
-  };
-  card.addEventListener('pointerup', cardUp);
-  card.addEventListener('pointercancel', cardUp);
-  card.addEventListener('pointerenter', () => { if (!cardDrag) gsap.fromTo(card, { rotation: 4 }, { rotation: 0, duration: 1.6, ease: 'elastic.out(1, 0.25)', overwrite: true }); });
-  card.addEventListener('click', () => { if (!handsOn) gsap.fromTo(card, { rotation: 18 }, { rotation: 0, duration: 2, ease: 'elastic.out(1, 0.22)' }); });
 
   /* The 2026 sticker spins when you touch it */
   const burst = document.querySelector('.burst');

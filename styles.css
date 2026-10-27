@@ -1102,3 +1102,61 @@ img.id-photo { height: auto; aspect-ratio: 1 / 1; }
 .live-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #1FA855; animation: live 1.8s ease-out infinite; }
 @keyframes live { to { scale: 2.8; opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .live-dot::after { animation: none; } }
+
+/* ===================== ID BADGE v2: a real PVC card (CR80, 54 × 86 mm) on a fabric lanyard ===================== */
+.badge { --bw: 214px; --strap: 190px; position: relative; z-index: 5; width: var(--bw); margin: -150px 0 0; padding-top: var(--strap); justify-self: center; }
+.badge-strap { position: absolute; left: 50%; top: -60px; width: 0; height: calc(var(--strap) + 66px); pointer-events: none; }
+.badge-strap span {
+  position: absolute; bottom: 0; width: calc(var(--bw) * .085); height: 100%; transform-origin: 50% 100%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='64'%3E%3Ctext x='9' y='32' fill='%23ffffff' fill-opacity='.42' font-family='Arial' font-weight='700' font-size='8' letter-spacing='1.6' text-anchor='middle' dominant-baseline='middle' transform='rotate(90 9 32)'%3ETUQO%3C/text%3E%3C/svg%3E") center top / 100% auto repeat-y,
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 3px),
+    linear-gradient(90deg, #121318, #23252c 50%, #121318);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .45);
+}
+.badge-strap span:first-child { left: calc(var(--bw) * -.085); rotate: 10deg; }
+.badge-strap span:last-child { left: 0; rotate: -10deg; }
+.badge-hook {
+  position: absolute; left: 50%; top: calc(var(--strap) - 14px); z-index: 2; width: calc(var(--bw) * .09); height: calc(var(--bw) * .2); translate: -50% 0;
+  border-radius: 40% 40% 30% 30% / 25% 25% 20% 20%;
+  background: linear-gradient(90deg, #7c7c7c, #f4f4f2 38%, #a3a3a0 62%, #d6d6d3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .5);
+}
+.badge-hook::before { content: ""; position: absolute; left: 50%; top: calc(var(--bw) * -.03); width: calc(var(--bw) * .16); height: calc(var(--bw) * .05); translate: -50% 0; border-radius: 3px; background: linear-gradient(180deg, #e9e9e6, #8e8e8a); }
+.badge-hook::after { content: ""; position: absolute; left: 28%; right: 28%; top: 30%; bottom: 18%; border-radius: 999px; background: rgba(0, 0, 0, .35); }
+
+.badge-card {
+  container-type: inline-size; position: relative; display: flex; flex-direction: column; align-items: center;
+  aspect-ratio: 54 / 86; overflow: hidden; border-radius: 4.6%  / 2.9%; rotate: 1.5deg; transform-origin: 50% -30px;
+  background: linear-gradient(170deg, #FCFBF8, #ECEAE4);
+  color: var(--ink); text-align: center;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1), 0 1px 2px rgba(0, 0, 0, .4), 0 22px 34px -14px rgba(0, 0, 0, .7);
+  filter: brightness(.94);
+}
+.badge-card::after { /* plastic sheen */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .5) 47%, transparent 56%) 140% 0 / 250% 100% no-repeat;
+  transition: background-position 1.1s cubic-bezier(.2, .7, .2, 1);
+}
+.badge:hover .badge-card::after { background-position: -40% 0; }
+.badge-head { position: relative; display: grid; place-items: center; width: 100%; height: 25cqw; padding-top: 8cqw; background: var(--ink); }
+.badge-slot { position: absolute; left: 50%; top: 3.6cqw; width: 24cqw; height: 4.4cqw; translate: -50% 0; border-radius: 99px; background: #0B0B0D; box-shadow: inset 0 1px 2px rgba(0, 0, 0, .8), 0 1px 0 rgba(255, 255, 255, .12); }
+.badge-logo { width: 46cqw; height: auto; color: #F4EFE4; }
+.badge-photo { display: block; width: 50cqw; height: auto; aspect-ratio: 4 / 5; margin-top: 7cqw; object-fit: cover; object-position: 50% 22%; box-shadow: 0 0 0 1px rgba(0, 0, 0, .12); }
+.badge-name { margin: 5.5cqw 0 0; font-family: var(--f-sans); font-weight: 800; font-size: 7.6cqw; line-height: 1.05; letter-spacing: -.01em; }
+.badge-role { margin: 2.6cqw 0 0; padding: .8cqw 3.4cqw; background: var(--red); color: #fff; font-family: var(--f-type); font-weight: 700; font-size: 4cqw; letter-spacing: .14em; text-transform: uppercase; }
+.badge-meta { margin: 2.6cqw 0 0; font-family: var(--f-type); font-size: 3.9cqw; color: #55524C; }
+.badge-motto { margin: 2.2cqw 6cqw 0; font-family: var(--f-serif); font-style: italic; font-size: 5.2cqw; line-height: 1.1; color: #2A2826; }
+.badge-barcode { width: 62cqw; height: 6.5cqw; margin: auto 0 5.5cqw; background: repeating-linear-gradient(90deg, #161616 0 1.2px, transparent 1.2px 2.6px, #161616 2.6px 3.4px, transparent 3.4px 5.6px, #161616 5.6px 7.6px, transparent 7.6px 9px); opacity: .85; }
+
+/* where the badge hangs */
+@media (min-width: 1000px) { .hero-stage { grid-template-columns: minmax(0, 1fr) 214px; column-gap: 30px; } }
+@media (max-width: 999px) {
+  .hero-stage { grid-template-columns: minmax(0, 1fr); }
+  .badge { --bw: 200px; --strap: 130px; margin: -10px auto 0; }
+}
+@media (min-width: 700px) and (max-width: 860px) { /* iPad portrait: hang it over the folder's empty top-right corner */
+  .badge { --bw: 196px; --strap: 160px; position: absolute; right: 4px; top: -150px; margin: 0; }
+}
+@media (max-width: 699px) { .badge { --bw: 184px; --strap: 110px; } }
+@media (prefers-reduced-motion: reduce) { .badge-card::after { transition: none; } }
