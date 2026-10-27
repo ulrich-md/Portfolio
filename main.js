@@ -260,7 +260,7 @@
     if (send.getAttribute('aria-expanded') === 'true') {
       reply.hidden = true;
       send.setAttribute('aria-expanded', 'false');
-      send.textContent = 'Show my reply';
+      send.textContent = 'Ask the archive';
       return;
     }
     typing.hidden = false;
@@ -270,7 +270,7 @@
       reply.hidden = false;
       send.disabled = false;
       send.setAttribute('aria-expanded', 'true');
-      send.textContent = 'Hide my reply';
+      send.textContent = 'Ask again';
       play('key');
     }, reduce ? 0 : 900);
   });
@@ -449,7 +449,7 @@
         el.classList.add('can-drag');
         const tilt = gsap.quickTo(el, 'rotation', { duration: 0.45, ease: 'power3' });
         window.Draggable.create(el, {
-          type: 'x,y', bounds, zIndexBoost: true, minimumMovement: 3,
+          type: 'x,y', bounds, zIndexBoost: true, minimumMovement: 3, dragClickables: false,
           onPress() { el.classList.add('is-dragging'); gsap.to(el, { scale: 1.05, duration: 0.2 }); play('pick'); },
           onDrag() { tilt(clamp(-14, 14, this.deltaX * 1.6)); },
           onRelease() {
@@ -464,7 +464,7 @@
     makeDrag('.cluster .pc', '.hero');
     makeDrag('.evidence .ev', '.board');
     makeDrag('.cork-notes .note, .quote, .origin', '.problem');
-    makeDrag('.receipt', '.impact');
+    makeDrag('.receipt:not(.work)', '.impact');
     makeDrag('.lessons .note', '.next');
     makeDrag('.lockers .stk', '.problem');
 

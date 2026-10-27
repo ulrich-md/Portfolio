@@ -14,6 +14,19 @@ Sitio web estático (HTML + CSS + JS, sin build) que cuenta la historia de TUQO 
 | **03 Case** (expediente) | Un proyecto con hilo rojo: antes → lo que construiste → después → lo que dijo el cliente |
 | **04 Next** | Lecciones, por qué esa universidad y contacto |
 
+## Proyectos reales que ya están en el sitio
+
+| Proyecto | Tipo | Enlace | Dónde aparece |
+|---|---|---|---|
+| Ángeles Mastretta | Sitio oficial de la autora | https://angelesmastretta.com | Portada, Impact, monitor, expediente |
+| Archivo Nexos | Chatbot sobre 32,942 textos (1978–2026) | https://www.archivonexos.online | Portada, Impact, celular, hoja, expediente |
+| Casa Balseca | Vino de Ribera del Duero | https://casa-balseca.vercel.app | Impact, cuaderno |
+| Manzanita Balseca | Refresco embotellado desde 1929 | https://manzanita-balseca-landing.lovable.app | Portada, Impact, cuaderno |
+| Marco Balseca | Página de un político | https://marco-balseca.vercel.app | Impact, cuaderno |
+| Peer Tutoring | Proyecto escolar, UWC Costa Rica | https://peer-tutoring-henna.vercel.app | Impact, recorte de periódico |
+
+Las capturas están en `assets/proof/`. Las tomé de los sitios en vivo; si cambias un sitio, vuelve a tomarlas.
+
 ## Cómo completarlo
 
 1. Abre `index.html` y busca `[` para encontrar todos los placeholders (`[Your Name]`, `[##]`, `[University]`…).
@@ -43,6 +56,9 @@ python3 -m http.server 8000
 - Respeta `prefers-reduced-motion`: si el visitante tiene las animaciones desactivadas, el sitio se muestra estático.
 
 ## Créditos de imágenes
+
+Las capturas de `assets/proof/` son de proyectos de TUQO.
+
 
 Todas las imágenes son de dominio público (CC0 / Public Domain Mark): se pueden usar sin pedir permiso ni dar crédito, pero aquí van sus fuentes.
 
