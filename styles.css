@@ -1168,3 +1168,8 @@ img.id-photo { height: auto; aspect-ratio: 1 / 1; }
 /* Keyboard: upright, with the photo's cropped edges (top row, right side) pushed off the desk */
 .keyboard-photo { top: -150px; right: -210px; width: 600px; rotate: 0deg; }
 @media (max-width: 1280px) { .keyboard-photo { top: -160px; right: -250px; width: 560px; } }
+@media (min-width: 1000px) {
+  .hero-stage { grid-template-columns: minmax(0, 1fr) 240px; }
+  .badge { --bw: 240px; --strap: clamp(200px, calc(100vh - 430px), 340px); }
+}
+@media (min-width: 1240px) { .byline { white-space: nowrap; font-size: 12px; } .byline b { font-size: 16px; } }
