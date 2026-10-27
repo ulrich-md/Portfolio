@@ -24,7 +24,7 @@ Sitio web estático (HTML + CSS + JS, sin build) que cuenta la historia de TUQO 
 | Manzanita Balseca | Refresco embotellado desde 1929 | https://manzanita-balseca-landing.lovable.app | Portada, Impact, cuaderno |
 | Marco Balseca | Página de un político | https://marco-balseca.vercel.app | Impact, cuaderno |
 | MOG México | Planta embotelladora de agua mineral | https://mog-mx.vercel.app | Impact, cuaderno |
-| Asistente de WhatsApp (con Ally) | Agente de IA, en desarrollo | — | Impact, call sheet, lecciones |
+| Ally (con Mark) | Agente de IA en WhatsApp, en beta | — (capturas en `assets/proof/ally-*.webp`, con el nombre de un tercero difuminado) | Impact, sobre del escritorio, call sheet, lecciones |
 | Peer Tutoring | Proyecto escolar, UWC Costa Rica | https://peer-tutoring-henna.vercel.app | Impact, recorte de periódico |
 
 Los enlaces muestran "Visit the live site" en lugar de la URL de Vercel o Lovable. Las capturas están en `assets/proof/`. Tu foto está en `assets/img/me.jpg` (polaroid) y `assets/img/me-id.jpg` (credencial). Las tomé de los sitios en vivo; si cambias un sitio, vuelve a tomarlas.

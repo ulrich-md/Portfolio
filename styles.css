@@ -1059,3 +1059,9 @@ img.id-photo { height: auto; aspect-ratio: 1 / 1; }
   .folder { padding-top: calc(100vw * .24); }
 }
 .end-credit { margin-top: 8px; font-size: 12px; opacity: .6; } .end-credit a { color: inherit; }
+
+/* Ally: real screenshots from the beta */
+.ally-shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; aspect-ratio: 16 / 10; margin-bottom: 14px; padding: 10px; background: #1B1F1D; overflow: hidden; }
+.ally-shots img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 8px; }
+.env-letter { padding: 8px; overflow: hidden; }
+.env-letter img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 3px; }
