@@ -847,8 +847,21 @@ img.binder-photo, img.keyboard-photo, img.plant { -webkit-user-drag: none; user-
 .nb-links { display: flex; flex-wrap: wrap; gap: 0 14px; }
 a.phone-caption { color: var(--ink); text-decoration: none; }
 a.phone-caption:hover { text-decoration: underline; }
-@media (min-width: 981px) { .metrics { grid-template-columns: .8fr 1.5fr 1fr 1fr; } }
-.metric-num { overflow-wrap: anywhere; }
+@media (min-width: 981px) { .metrics { grid-template-columns: 1.3fr 1fr .7fr 1.3fr; } }
+.metric-num { white-space: nowrap; font-size: clamp(54px, 5.4vw, 84px); }
 .receipt a.work-link { color: var(--ink); font-weight: 400; }
 .work h3 { font-weight: 800; }
 .ev figcaption a { white-space: nowrap; font-weight: 700; color: var(--red-dark); }
+.pc .shot.me { aspect-ratio: 1 / 1.05; object-position: 50% 30%; }
+img.id-photo { display: block; width: 100%; object-fit: cover; object-position: 50% 25%; }
+
+/* "Now building": the WhatsApp assistant (no public link yet, so a chat mock) */
+.agent { padding: 12px 12px 18px; }
+.chat-mock { display: flex; flex-direction: column; gap: 8px; aspect-ratio: 16 / 10; margin-bottom: 14px; padding: 16px 14px; background: #E9E1D6; outline: 1px solid rgba(0, 0, 0, .08); }
+.chat-mock p { max-width: 82%; margin: 0; padding: 8px 11px; border-radius: 10px; font-size: 14px; line-height: 1.35; box-shadow: 0 1px 1px rgba(0, 0, 0, .12); }
+.cm-in { align-self: flex-start; background: #fff; border-top-left-radius: 2px; }
+.cm-out { align-self: flex-end; background: #D9FDD3; border-top-right-radius: 2px; }
+.chat-mock .cm-tag { align-self: center; margin-top: auto; padding: 2px 8px; background: rgba(255, 255, 255, .7); box-shadow: none; font-family: var(--f-type); font-size: 11px; color: var(--muted); }
+.agent h3 { margin-top: 8px; font-size: 22px; line-height: 1.1; font-weight: 800; }
+.agent p { font-size: 15px; }
+.agent > p { margin-top: 6px; }
