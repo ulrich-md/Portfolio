@@ -57,6 +57,10 @@ python3 -m http.server 8000
 - Fuentes de Google Fonts: Bricolage Grotesque, Instrument Serif, Gochi Hand y Courier Prime.
 - Respeta `prefers-reduced-motion`: si el visitante tiene las animaciones desactivadas, el sitio se muestra estático.
 
+## Logo
+
+`assets/tuqo-logo.svg` es el logo de TUQO redibujado en vector (geometría limpia a partir del PNG original). Usa `currentColor`, así que toma el color del texto: negro en el fólder, blanco en la barra de navegación. `assets/favicon.svg` es la Q del logo.
+
 ## Créditos de imágenes
 
 Las capturas de `assets/proof/` son de proyectos de TUQO.

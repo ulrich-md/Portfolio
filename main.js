@@ -347,7 +347,7 @@
   gsap.timeline({ defaults: { ease: 'power3.out' } })
     .from('.folder', { y: 90, rotation: -6, opacity: 0, duration: 1 })
     .from('.burst', { scale: 0, rotation: -120, duration: 0.7, ease: 'back.out(2.2)' }, '-=0.4')
-    .from('.t-l', { yPercent: 100, opacity: 0, duration: 0.6, stagger: 0.07, ease: 'back.out(2)' }, '-=0.5')
+    .from('.logo-svg .lg', { y: 140, opacity: 0, duration: 0.6, stagger: 0.07, ease: 'back.out(2)' }, '-=0.5')
     .from('.disc', { scale: 0, rotation: -180, duration: 0.8, ease: 'back.out(1.8)' }, '-=0.35')
     .fromTo('.t-serif', { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.9, ease: 'power2.inOut' }, '-=0.4')
     .from('.roles, .thesis, .spec, .folder-copy .btn', { y: 20, opacity: 0, duration: 0.6, stagger: 0.08 }, '-=0.5')

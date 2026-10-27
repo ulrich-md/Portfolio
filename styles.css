@@ -1078,3 +1078,13 @@ img.id-photo { height: auto; aspect-ratio: 1 / 1; }
   .spec dd { font-size: 22px; }
   .cluster { max-height: 640px; }
 }
+
+/* ===================== The real TUQO logo ===================== */
+.t-logo { position: relative; display: inline-block; line-height: 1; }
+.logo-svg { display: block; width: auto; height: .74em; overflow: visible; color: var(--ink); }
+.t-logo .disc { position: absolute; right: -.5em; top: -.42em; width: .56em; height: .56em; margin: 0; rotate: 12deg; }
+.t-logo + .t-serif { margin-top: .12em; }
+.chapters .brand { padding: 0 4px; }
+.brand-logo { display: block; width: auto; height: 15px; color: #fff; }
+.t-logo .disc { top: auto; bottom: -.2em; right: -.66em; }
+.t-logo + .t-serif { margin-top: .04em; }
