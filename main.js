@@ -600,7 +600,7 @@
     const rotY = gsap.quickTo(stage, 'rotationY', { duration: 0.9, ease: 'power3' });
     const floppyX = gsap.quickTo('.floppy', 'x', { duration: 1, ease: 'power3' });
     hero.addEventListener('pointermove', (e) => {
-      if (document.querySelector('.is-dragging') || activePull || cardDrag) return;
+      if (document.querySelector('.is-dragging') || activePull) return;
       const r = hero.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width - 0.5;
       const py = (e.clientY - r.top) / r.height - 0.5;

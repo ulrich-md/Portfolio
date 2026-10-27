@@ -1160,3 +1160,6 @@ img.id-photo { height: auto; aspect-ratio: 1 / 1; }
 }
 @media (max-width: 699px) { .badge { --bw: 184px; --strap: 110px; } }
 @media (prefers-reduced-motion: reduce) { .badge-card::after { transition: none; } }
+
+/* Strings run behind the photos and notes, tucked under their pushpins */
+.strings { z-index: 0; }
