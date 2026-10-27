@@ -64,6 +64,7 @@ Las capturas de `assets/proof/` son de proyectos de TUQO.
 
 Todas las imágenes son de dominio público (CC0 / Public Domain Mark): se pueden usar sin pedir permiso ni dar crédito, pero aquí van sus fuentes.
 
+- Fólder manila (portada): [Manila folder](https://commons.wikimedia.org/wiki/File:Manila_folder.jpg) — allispossible.org.uk, **CC BY 2.0** (requiere crédito: ya está en el pie de página). Fondo recortado y color ajustado.
 - Texturas (kraft, corcho, madera, papel, metal): [ambientCG](https://ambientcg.com), CC0 — Cardboard002, Cork004, Wood051, Wood092, Paper001, PaintedMetal004.
 - Pizarra (Impact, call sheet): [Chalkboard Chalk](https://stocksnap.io/photo/chalkboard-chalk-FQCCUDQ3N0) — Flat Lay Photos, CC0.
 - Taza de café: [Top View Coffee Desk](https://www.rawpixel.com/image/5967272/top-view-coffee-desk) — autor desconocido, CC0. Fondo recortado con rembg.
