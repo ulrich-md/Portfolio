@@ -588,8 +588,7 @@
       if (Math.abs(tx - cx) < 0.5 && Math.abs(ty - cy) < 0.5) return;
       cx += (tx - cx) * 0.08;
       cy += (ty - cy) * 0.08;
-      light.style.setProperty('--lx', `${cx}px`);
-      light.style.setProperty('--ly', `${cy}px`);
+      light.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
     });
 
     /* The cover leans toward you */

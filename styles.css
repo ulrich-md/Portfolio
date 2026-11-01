@@ -37,16 +37,17 @@
   --gutter-r: max(20px, env(safe-area-inset-right, 0px));
 
   color-scheme: dark;
-  transition: --mat .9s ease;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { background: var(--mat); }
+/* Only html and body fade between chapter colours: transitioning --mat itself restyled every element on each frame */
+html { background: var(--mat); transition: background-color .9s ease; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 body {
   margin: 0;
   background: var(--mat);
+  transition: background-color .9s ease;
   color: var(--chalk);
   font-family: var(--f-sans);
   font-size: 18px;
@@ -65,7 +66,8 @@ a { color: inherit; }
 
 .grain {
   position: fixed; inset: 0; z-index: 40; pointer-events: none; opacity: .07;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* A pre-rendered tile on its own layer: painted once, not on every scroll frame */
+  background: url("assets/tex/grain.png") 0 0 / 160px 160px; will-change: transform;
 }
 main { position: relative; z-index: 1; overflow-x: clip; }
 .progress { position: fixed; left: 0; right: 0; top: env(safe-area-inset-top, 0px); height: 4px; z-index: 60; background: rgba(255, 255, 255, .08); }
@@ -572,7 +574,7 @@ main { position: relative; z-index: 1; overflow-x: clip; }
   position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); translate: -50% 0; z-index: 50;
   display: flex; align-items: center; gap: 6px; max-width: calc(100% - 32px);
   padding: 6px 6px 6px 18px; border: 1px solid rgba(255, 255, 255, .16); border-radius: 999px;
-  background: rgba(16, 16, 18, .92); backdrop-filter: blur(8px); box-shadow: 0 14px 30px rgba(0, 0, 0, .45);
+  background: rgba(16, 16, 18, .95); box-shadow: 0 14px 30px rgba(0, 0, 0, .45);
   transition: transform .5s cubic-bezier(.2, .8, .2, 1), opacity .4s ease;
 }
 .chapters.is-hidden { transform: translateY(160%); opacity: 0; pointer-events: none; }
@@ -602,9 +604,10 @@ main { position: relative; z-index: 1; overflow-x: clip; }
 
 /* A warm desk light that follows the pointer */
 .light {
-  --lx: 30vw; --ly: 20vh;
-  position: fixed; inset: 0; z-index: 30; pointer-events: none; mix-blend-mode: screen;
-  background: radial-gradient(560px circle at var(--lx) var(--ly), rgba(255, 222, 170, .11), transparent 70%);
+  /* Moved with transform (GPU only) instead of repainting a full-screen gradient */
+  position: fixed; left: 0; top: 0; z-index: 30; width: 1120px; height: 1120px; margin: -560px 0 0 -560px; pointer-events: none;
+  background: radial-gradient(560px circle at center, rgba(255, 222, 170, .1), transparent 70%);
+  transform: translate3d(30vw, 20vh, 0); will-change: transform;
 }
 
 /* Paper details */
@@ -621,6 +624,7 @@ main { position: relative; z-index: 1; overflow-x: clip; }
 /* Cover: lamp glow, window-blind shadows, a floppy in the foreground, a coffee ring */
 .lamp-glow { position: absolute; left: -15%; top: -30%; width: 75%; height: 100%; z-index: 0; pointer-events: none; background: radial-gradient(closest-side, rgba(255, 210, 140, .2), rgba(255, 210, 140, .06) 60%, transparent); }
 .hero-stage { will-change: transform; }
+[data-speed] { will-change: transform; }
 .coffee-ring { position: absolute; right: 9%; bottom: 7%; width: 120px; height: 120px; border-radius: 50%; pointer-events: none; border: 5px solid rgba(110, 60, 20, .16); box-shadow: inset 0 0 0 2px rgba(110, 60, 20, .08); rotate: 20deg; clip-path: polygon(0 0, 100% 0, 100% 72%, 60% 100%, 0 100%); }
 .floppy { left: -40px; bottom: 30px; width: 190px; height: 200px; border-radius: 6px 6px 6px 22px; rotate: -18deg; background: linear-gradient(160deg, #3A4C8E, #1F2B5C); box-shadow: 0 30px 50px rgba(0, 0, 0, .6); }
 .fl-shutter { position: absolute; top: 0; left: 30%; width: 44%; height: 34%; border-radius: 0 0 4px 4px; background: linear-gradient(180deg, #E1E3E6, #9EA3AA); }
